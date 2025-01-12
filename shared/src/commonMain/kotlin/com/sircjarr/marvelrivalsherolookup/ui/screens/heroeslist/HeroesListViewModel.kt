@@ -38,6 +38,10 @@ class HeroesListViewModel(
         loadHeroesList()
     }
 
+    fun setFilters() {
+
+    }
+
     fun loadHeroesList() {
         viewState.value = viewState.value.copy(
             isLoading = true

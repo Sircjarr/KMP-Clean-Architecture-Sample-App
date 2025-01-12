@@ -6,11 +6,11 @@ data class HeroListItemModel(
     val id: String,
     val tag: String,
     val title: String,
-    val images: List<String>,
+    val imageUrl: String,
     val url: String
 )
 
 fun List<HeroListItemDto>.toHeroListItemModel() = map { hero ->
     val (id, tag, title, images, url) = hero
-    HeroListItemModel(id, tag, title, images, url)
+    HeroListItemModel(id, tag, title, images.first(), url)
 }
