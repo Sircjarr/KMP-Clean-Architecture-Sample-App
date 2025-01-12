@@ -28,7 +28,38 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+
+            // Testing
+
+
+            // KT coroutines
             implementation(libs.kotlinx.coroutines.core)
+
+            // Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.koin.test)
+        }
+
+        androidMain.dependencies {
+            // Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+
+            // Koin Android
+            implementation(libs.koin.android)
+
+            // Koin + Android Jetpack Compose
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.koin.androidx.compose.navigation)
+            // implementation("io.insert-koin:koin-logger-slf4j:")
+            // Koin + Ktor
+            // implementation("io.insert-koin:koin-ktor")
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.koin.test)
         }
     }
 }

@@ -18,11 +18,25 @@ kotlin {
     }
     
     sourceSets {
-        
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            // Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+
+            // Koin Android
+            implementation(libs.koin.android)
+
+            // Koin + Android Jetpack Compose
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.koin.androidx.compose.navigation)
+            // implementation("io.insert-koin:koin-logger-slf4j:")
+            // Koin + Ktor
+            // implementation("io.insert-koin:koin-ktor")
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)

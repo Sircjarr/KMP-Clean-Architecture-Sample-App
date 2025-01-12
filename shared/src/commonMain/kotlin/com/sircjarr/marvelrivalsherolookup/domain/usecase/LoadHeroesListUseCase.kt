@@ -4,7 +4,7 @@ import com.sircjarr.marvelrivalsherolookup.domain.repo.HeroesListRepo
 
 class LoadHeroesListUseCase(private val heroesListRepo: HeroesListRepo) {
 
-    operator fun invoke() {
-        heroesListRepo.getFlow()
+    suspend operator fun invoke() {
+        heroesListRepo.loadHeroesList()
     }
 }

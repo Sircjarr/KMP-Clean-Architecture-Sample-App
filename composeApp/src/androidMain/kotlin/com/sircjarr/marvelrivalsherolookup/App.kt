@@ -10,16 +10,27 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListAndroidViewModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import marvelrivalsheroslookup.composeapp.generated.resources.Res
 import marvelrivalsheroslookup.composeapp.generated.resources.compose_multiplatform
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
+        val viewModel = koinViewModel<HeroesListAndroidViewModel>().viewModel
+        val viewState = viewModel.viewState.collectAsState()
+
+        LaunchedEffect(true) {
+            viewModel.init()
+        }
+
+        println("viewstate: $viewState")
+
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
