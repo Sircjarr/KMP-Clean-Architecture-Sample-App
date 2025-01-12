@@ -33,8 +33,6 @@ kotlin {
             implementation(libs.koin.androidx.compose)
             implementation(libs.koin.androidx.compose.navigation)
             // implementation("io.insert-koin:koin-logger-slf4j:")
-            // Koin + Ktor
-            // implementation("io.insert-koin:koin-ktor")
         }
 
         commonMain.dependencies {

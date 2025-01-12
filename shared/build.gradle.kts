@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 kotlin {
@@ -39,6 +40,20 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.test)
+
+            // Ktor
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+
+            // Ktor JSON DTO Serialization
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
+            // KT serialization
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+            // Koin + Ktor
+            // implementation("io.insert-koin:koin-ktor")
         }
 
         androidMain.dependencies {
