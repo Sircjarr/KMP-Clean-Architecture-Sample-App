@@ -1,22 +1,16 @@
 package com.sircjarr.marvelrivalsherolookup.ui.model
 
-import com.sircjarr.marvelrivalsherolookup.domain.model.HeroesListModel
+import com.sircjarr.marvelrivalsherolookup.domain.model.HeroListItemModel
 
-data class HeroesList(
-    val list: List<HeroDetail>
-)
-
-data class HeroDetail(
+data class HeroListItem(
     val id: String,
     val tag: String,
     val title: String,
-    val urls: List<String>,
+    val images: List<String>,
     val url: String
 )
 
-fun HeroesListModel.toHeroesList() = HeroesList(
-    list.map { hero ->
-        val (id, tag, title, urls, url) = hero
-        HeroDetail(id, tag, title, urls, url)
-    }
-)
+fun List<HeroListItemModel>.toHeroesList() = map { hero ->
+    val (id, tag, title, images, url) = hero
+    HeroListItem(id, tag, title, images, url)
+}

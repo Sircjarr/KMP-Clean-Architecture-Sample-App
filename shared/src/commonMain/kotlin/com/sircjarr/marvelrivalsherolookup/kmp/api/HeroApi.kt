@@ -2,14 +2,12 @@ package com.sircjarr.marvelrivalsherolookup.kmp.api
 
 import com.sircjarr.marvelrivalsherolookup.data.api.HeroDataSource
 import com.sircjarr.marvelrivalsherolookup.data.model.HeroDetailsDto
-import com.sircjarr.marvelrivalsherolookup.data.model.HeroesListDto
+import com.sircjarr.marvelrivalsherolookup.data.model.HeroListItemDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
-import io.ktor.http.ContentType.Application.Json
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.core.use
 import kotlinx.io.IOException
@@ -20,10 +18,10 @@ private const val URL_HERO_DETAILS = "https://mrapi.org/api/hero/"
 
 class HeroApi: HeroDataSource {
 
-    override suspend fun getHeroesList(): HeroesListDto {
+    override suspend fun getHeroesList(): List<HeroListItemDto> {
         return try {
             buildClient().use { client ->
-                client.get(URL_HEROES_LIST).body<HeroesListDto>().also {
+                client.get(URL_HEROES_LIST).body<List<HeroListItemDto>>().also {
                     println("response: $it")
                 }
             }
@@ -42,6 +40,7 @@ class HeroApi: HeroDataSource {
             install(ContentNegotiation) {
                 json(Json {
                     isLenient = true
+                    ignoreUnknownKeys = true
                 })
             }
         }
