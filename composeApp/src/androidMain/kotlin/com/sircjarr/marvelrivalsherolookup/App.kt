@@ -6,8 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -90,6 +92,10 @@ fun HeroListScreen(
                 it.`class`
             }.toSortedMap()
         }
+    }
+
+    val itemSize = remember(heroMap) {
+        mutableIntStateOf(heroMap.value.values.flatten().size)
     }
 
     Scaffold(
@@ -189,6 +195,13 @@ fun HeroListScreen(
                                 )
                             }
                         }
+                    }
+                }
+
+                item {
+                    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(modifier = Modifier.padding(top = 16.dp), text = "${itemSize.intValue}", fontSize = 16.sp)
+                        Spacer(Modifier.height(250.dp))
                     }
                 }
             }
