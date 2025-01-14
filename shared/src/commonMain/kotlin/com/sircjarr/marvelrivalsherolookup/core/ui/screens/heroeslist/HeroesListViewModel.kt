@@ -1,8 +1,8 @@
-package com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist
+package com.sircjarr.marvelrivalsherolookup.core.ui.screens.heroeslist
 
-import com.sircjarr.marvelrivalsherolookup.domain.usecase.GetHeroesListUseCase
-import com.sircjarr.marvelrivalsherolookup.domain.usecase.LoadHeroesListUseCase
-import com.sircjarr.marvelrivalsherolookup.ui.model.HeroListItem
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.GetHeroesListUseCase
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.LoadHeroesListUseCase
+import com.sircjarr.marvelrivalsherolookup.core.ui.model.HeroListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -17,7 +17,6 @@ class HeroesListViewModel(
     private val loadHeroesListUseCase: LoadHeroesListUseCase
 ) {
     val viewState = MutableStateFlow(HeroesListViewState())
-    val filters = ArrayDeque<ListItemFilter>(3)
 
     fun init() {
 
@@ -36,10 +35,6 @@ class HeroesListViewModel(
         }
 
         loadHeroesList()
-    }
-
-    fun setFilters() {
-
     }
 
     fun loadHeroesList() {

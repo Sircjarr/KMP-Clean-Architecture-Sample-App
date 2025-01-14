@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup.data.model
+package com.sircjarr.marvelrivalsherolookup.core.data.model
 
 import kotlinx.serialization.Serializable
 

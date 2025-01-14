@@ -1,14 +1,14 @@
 package com.sircjarr.marvelrivalsherolookup.kmp.di
 
-import com.sircjarr.marvelrivalsherolookup.data.api.HeroDataSource
-import com.sircjarr.marvelrivalsherolookup.domain.repo.HeroDetailsRepo
-import com.sircjarr.marvelrivalsherolookup.domain.repo.HeroesListRepo
-import com.sircjarr.marvelrivalsherolookup.domain.usecase.GetHeroDetailsUseCase
-import com.sircjarr.marvelrivalsherolookup.domain.usecase.GetHeroesListUseCase
-import com.sircjarr.marvelrivalsherolookup.domain.usecase.LoadHeroesListUseCase
+import com.sircjarr.marvelrivalsherolookup.core.data.api.HeroDataSource
+import com.sircjarr.marvelrivalsherolookup.core.domain.repo.HeroDetailsRepo
+import com.sircjarr.marvelrivalsherolookup.core.domain.repo.HeroesListRepo
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.GetHeroDetailsUseCase
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.GetHeroesListUseCase
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.LoadHeroesListUseCase
 import com.sircjarr.marvelrivalsherolookup.kmp.api.HeroApi
-import com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails.HeroDetailsViewModel
-import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListViewModel
+import com.sircjarr.marvelrivalsherolookup.core.ui.screens.herodetails.HeroDetailsViewModel
+import com.sircjarr.marvelrivalsherolookup.core.ui.screens.heroeslist.HeroesListViewModel
 import org.koin.core.module.dsl.createdAtStart
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf

@@ -1,6 +1,6 @@
-package com.sircjarr.marvelrivalsherolookup.ui.model
+package com.sircjarr.marvelrivalsherolookup.core.ui.model
 
-import com.sircjarr.marvelrivalsherolookup.domain.model.HeroDetailsModel
+import com.sircjarr.marvelrivalsherolookup.core.domain.model.HeroDetailsModel
 
 data class HeroDetails(
     val title: String,

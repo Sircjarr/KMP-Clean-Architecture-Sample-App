@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup.data.model
+package com.sircjarr.marvelrivalsherolookup.core.data.model
 
 data class HeroDetailsDto(
     val title: String,

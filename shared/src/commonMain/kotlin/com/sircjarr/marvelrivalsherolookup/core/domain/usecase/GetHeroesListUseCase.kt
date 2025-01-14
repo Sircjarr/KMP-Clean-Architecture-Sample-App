@@ -1,8 +1,8 @@
-package com.sircjarr.marvelrivalsherolookup.domain.usecase
+package com.sircjarr.marvelrivalsherolookup.core.domain.usecase
 
-import com.sircjarr.marvelrivalsherolookup.domain.repo.HeroesListRepo
-import com.sircjarr.marvelrivalsherolookup.ui.model.HeroListItem
-import com.sircjarr.marvelrivalsherolookup.ui.model.toHeroesList
+import com.sircjarr.marvelrivalsherolookup.core.domain.repo.HeroesListRepo
+import com.sircjarr.marvelrivalsherolookup.core.ui.model.HeroListItem
+import com.sircjarr.marvelrivalsherolookup.core.ui.model.toHeroesList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

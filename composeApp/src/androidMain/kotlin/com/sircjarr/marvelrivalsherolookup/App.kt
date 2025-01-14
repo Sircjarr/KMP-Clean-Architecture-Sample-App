@@ -3,7 +3,6 @@ package com.sircjarr.marvelrivalsherolookup
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +18,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,10 +27,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
-import com.sircjarr.marvelrivalsherolookup.ui.model.HeroListItem
+import com.sircjarr.marvelrivalsherolookup.core.ui.model.HeroListItem
 import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListAndroidViewModel
-import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListViewState
+import com.sircjarr.marvelrivalsherolookup.core.ui.screens.heroeslist.HeroesListViewState
 
 import org.koin.androidx.compose.koinViewModel
 
@@ -66,11 +65,12 @@ fun HeroListScreen(
 
     val (_, list) = viewState
 
+    // Todo: Implement / apply filters
     val searchList = remember(list, search) {
         derivedStateOf {
             if (search.isBlank()) list else {
                 list.filter {
-                    it.title.lowercase().contains(search.lowercase())
+                    it.name.lowercase().contains(search.lowercase())
                 }
             }
         }
@@ -122,10 +122,12 @@ fun HeroListScreen(
         content = { padding ->
             LazyColumn(Modifier.padding(padding)) {
                 items(searchList.value, key = { it.id }) { item ->
-                    Card(modifier = Modifier.fillMaxWidth()) {
+                    Card(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                        val (_, _, title, imageUrl) = item
                         Row {
-                            Text(item.tag)
-                            Text(item.title)
+                            // Todo: load image
+                            Text("")
+                            Text(title, fontSize = 20.sp)
                         }
                     }
                 }

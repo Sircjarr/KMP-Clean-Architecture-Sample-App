@@ -1,8 +1,8 @@
-package com.sircjarr.marvelrivalsherolookup.domain.repo
+package com.sircjarr.marvelrivalsherolookup.core.domain.repo
 
-import com.sircjarr.marvelrivalsherolookup.data.api.HeroDataSource
-import com.sircjarr.marvelrivalsherolookup.domain.model.HeroListItemModel
-import com.sircjarr.marvelrivalsherolookup.domain.model.toHeroListItemModel
+import com.sircjarr.marvelrivalsherolookup.core.data.api.HeroDataSource
+import com.sircjarr.marvelrivalsherolookup.core.domain.model.HeroListItemModel
+import com.sircjarr.marvelrivalsherolookup.core.domain.model.toHeroListItemModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.map

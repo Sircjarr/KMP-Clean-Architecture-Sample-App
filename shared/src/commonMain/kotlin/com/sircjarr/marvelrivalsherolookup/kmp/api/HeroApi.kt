@@ -1,8 +1,8 @@
 package com.sircjarr.marvelrivalsherolookup.kmp.api
 
-import com.sircjarr.marvelrivalsherolookup.data.api.HeroDataSource
-import com.sircjarr.marvelrivalsherolookup.data.model.HeroDetailsDto
-import com.sircjarr.marvelrivalsherolookup.data.model.HeroListItemDto
+import com.sircjarr.marvelrivalsherolookup.core.data.api.HeroDataSource
+import com.sircjarr.marvelrivalsherolookup.core.data.model.HeroDetailsDto
+import com.sircjarr.marvelrivalsherolookup.core.data.model.HeroListItemDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
