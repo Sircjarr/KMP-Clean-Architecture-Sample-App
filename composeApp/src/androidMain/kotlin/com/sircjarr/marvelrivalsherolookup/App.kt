@@ -175,14 +175,18 @@ fun HeroListScreen(
 
                     items(items, key = { it.id }) { item ->
                         Card(modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)) {
-                            val (_, _, title, imageUrl) = item
+                            val (_, _, name, imageUrl) = item
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 AsyncImage(
                                     modifier = Modifier.size(70.dp),
                                     model = imageUrl,
                                     contentDescription = null
                                 )
-                                Text(modifier = Modifier.padding(start = 8.dp), text = title, fontSize = 20.sp)
+                                Text(
+                                    modifier = Modifier.padding(start = 8.dp),
+                                    text = name.lowercase().split(" ").map { it.replaceFirstChar { it.uppercase() }}.joinToString(" "),
+                                    fontSize = 20.sp
+                                )
                             }
                         }
                     }
