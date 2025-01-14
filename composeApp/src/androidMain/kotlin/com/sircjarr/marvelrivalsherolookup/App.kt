@@ -143,7 +143,7 @@ fun HeroListScreen(
                                 DropdownMenuItem(
                                     onClick = ::onClick,
                                     content = {
-                                        Row {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
                                             Checkbox(
                                                 checked = !blacklist.contains(`class`),
                                                 onCheckedChange = { onClick() }
