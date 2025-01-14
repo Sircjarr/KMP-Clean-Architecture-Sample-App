@@ -12,5 +12,5 @@ data class HeroListItemModel(
 
 fun List<HeroListItemDto>.toHeroListItemModel() = map { hero ->
     val (id, tag, title, images, url) = hero
-    HeroListItemModel(id, tag.ifEmpty { "UNKNOWN" }, title, images.first(), url)
+    HeroListItemModel(id, tag.ifEmpty { "ROGUE" }, title, images.first(), url)
 }

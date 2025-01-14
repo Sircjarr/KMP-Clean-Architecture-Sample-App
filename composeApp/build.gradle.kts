@@ -33,6 +33,10 @@ kotlin {
             implementation(libs.koin.androidx.compose)
             implementation(libs.koin.androidx.compose.navigation)
             // implementation("io.insert-koin:koin-logger-slf4j:")
+
+            // Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.okhttp)
         }
 
         commonMain.dependencies {

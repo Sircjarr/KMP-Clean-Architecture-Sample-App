@@ -1,6 +1,7 @@
 package com.sircjarr.marvelrivalsherolookup
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
 import com.sircjarr.marvelrivalsherolookup.core.ui.model.HeroListItem
 import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListAndroidViewModel
@@ -163,16 +165,24 @@ fun HeroListScreen(
                     val (`class`, items) = it
 
                     stickyHeader(key = `class`) {
-                        Text(`class`, fontSize = 20.sp)
+                        Box(modifier = Modifier.fillMaxWidth().background(Color.White)) {
+                            Text(
+                                modifier = Modifier.padding(8.dp),
+                                text = `class`, fontSize = 16.sp
+                            )
+                        }
                     }
 
                     items(items, key = { it.id }) { item ->
-                        Card(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                        Card(modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)) {
                             val (_, _, title, imageUrl) = item
-                            Row {
-                                // Todo: load image
-                                Text("")
-                                Text(title, fontSize = 20.sp)
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                AsyncImage(
+                                    modifier = Modifier.size(70.dp),
+                                    model = imageUrl,
+                                    contentDescription = null
+                                )
+                                Text(modifier = Modifier.padding(start = 8.dp), text = title, fontSize = 20.sp)
                             }
                         }
                     }
