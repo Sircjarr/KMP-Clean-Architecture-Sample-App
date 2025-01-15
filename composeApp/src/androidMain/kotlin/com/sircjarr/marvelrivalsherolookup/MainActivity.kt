@@ -3,28 +3,25 @@ package com.sircjarr.marvelrivalsherolookup
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material.MaterialTheme
 import com.sircjarr.marvelrivalsherolookup.kmp.di.sharedModule
-import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.composeAppModule
+import com.sircjarr.marvelrivalsherolookup.di.composeAppModule
+import com.sircjarr.marvelrivalsherolookup.ui.MainNavHost
 import org.koin.core.context.GlobalContext.startKoin
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Inject dependencies per module definitions
         startKoin {
             modules(sharedModule, composeAppModule)
         }
 
         setContent {
-            App()
+            MaterialTheme {
+                MainNavHost()
+            }
         }
     }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
 }
