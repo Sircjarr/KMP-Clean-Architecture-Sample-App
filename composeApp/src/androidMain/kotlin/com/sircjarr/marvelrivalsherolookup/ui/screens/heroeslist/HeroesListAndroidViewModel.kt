@@ -5,6 +5,4 @@ import com.sircjarr.marvelrivalsherolookup.core.ui.screens.heroeslist.HeroesList
 
 class HeroesListAndroidViewModel(
     val viewModel: HeroesListViewModel
-): ViewModel() {
-    // val viewModel: HeroesListViewModel by inject(HeroesListViewModel::class.java)
-}
+): ViewModel()

@@ -5,5 +5,5 @@ data class HeroDetailsDto(
     val name: String,
     val tag: String,
     val description: String,
-    val lore: String,
+    val images: List<String>,
 )

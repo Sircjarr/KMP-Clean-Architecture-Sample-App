@@ -3,6 +3,7 @@ package com.sircjarr.marvelrivalsherolookup.kmp.api
 import com.sircjarr.marvelrivalsherolookup.core.data.api.HeroDataSource
 import com.sircjarr.marvelrivalsherolookup.core.data.model.HeroDetailsDto
 import com.sircjarr.marvelrivalsherolookup.core.data.model.HeroListItemDto
+import com.sircjarr.marvelrivalsherolookup.core.domain.repo.HeroDetailsRepo
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
@@ -32,7 +33,18 @@ class HeroApi: HeroDataSource {
     }
 
     override suspend fun getHeroDetails(name: String): HeroDetailsDto {
-        TODO("Not yet implemented")
+        val heroNameArg = name.lowercase().split(" ").map { it.replaceFirstChar { it.uppercase() }}.joinToString("_")
+
+        return try {
+            buildClient().use { client ->
+                client.get("${URL_HERO_DETAILS}$heroNameArg").body<HeroDetailsDto>().also {
+                    println("response details: $it")
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw IOException()
+        }
     }
 
     private fun buildClient(): HttpClient {

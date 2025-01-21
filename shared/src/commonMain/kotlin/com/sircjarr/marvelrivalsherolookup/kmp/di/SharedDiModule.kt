@@ -17,16 +17,17 @@ import org.koin.dsl.module
 
 val sharedModule = module {
 
-    // Singletons
-    singleOf(::HeroApi) bind HeroDataSource::class
+    singleOf(::HeroApi) bind HeroDataSource::class // Singleton
     singleOf(::HeroApi) { createdAtStart() }
+
+    // Heroes List screen
     singleOf(::HeroesListRepo) { createdAtStart() }
-    singleOf(::HeroDetailsRepo) { createdAtStart() }
     singleOf(::GetHeroesListUseCase) { createdAtStart() }
     singleOf(::LoadHeroesListUseCase) { createdAtStart() }
     singleOf(::HeroesListViewModel) { createdAtStart() }
 
-    // Create new objects on every injection
-    factoryOf(::GetHeroDetailsUseCase)
+    // Hero Details screen
+    singleOf(::HeroDetailsRepo) { createdAtStart() }
+    factoryOf(::GetHeroDetailsUseCase) // Inject on-demand
     factoryOf(::HeroDetailsViewModel)
 }

@@ -18,10 +18,12 @@ class HeroesListViewModel(
 ) {
     val viewState = MutableStateFlow(HeroesListViewState())
 
+    // Todo: scope to viewModelScope
+    private val scope = CoroutineScope(Dispatchers.IO)
+
     fun init() {
 
-        // Todo: scope to viewModelScope
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             getHeroesListUseCase().collect { heroesList ->
                 heroesList?.let { list ->
                     withContext(Dispatchers.Main) {
@@ -43,7 +45,7 @@ class HeroesListViewModel(
         )
 
         // Todo: handle errors, scope to viewmodel
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             loadHeroesListUseCase()
             println("LOADED LIST!")
         }
