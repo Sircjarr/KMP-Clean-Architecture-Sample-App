@@ -15,11 +15,11 @@ class HeroDetailsViewModel(
 
     // Todo: scope to viewModelScope
     private val scope = CoroutineScope(Dispatchers.IO)
-    lateinit var name: String
+    lateinit var heroName: String
 
-    fun init(name: String) {
-        this.name = name
-        loadHeroDetails(name)
+    fun init(heroName: String) {
+        this.heroName = heroName
+        loadHeroDetails(heroName)
     }
 
     fun loadHeroDetails(name: String) {

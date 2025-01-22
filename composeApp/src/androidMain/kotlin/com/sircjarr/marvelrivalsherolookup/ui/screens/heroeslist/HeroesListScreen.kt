@@ -44,18 +44,22 @@ import kotlinx.coroutines.launch
 @Preview
 fun HeroesListScreen(
     @PreviewParameter(provider = HeroesListViewStatePreviewParamProvider::class)
-    viewState: HeroesListViewState
+    viewState: HeroesListViewState,
+    onHeroClicked: (HeroListItem) -> Unit = {}
 ) {
     if (viewState.isLoading) {
         LoadingMessage(Modifier.fillMaxSize(), "Fetching heroes list, please wait...")
     } else {
-        HeroesListContent(viewState)
+        HeroesListContent(viewState, onHeroClicked)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HeroesListContent(viewState: HeroesListViewState) {
+fun HeroesListContent(
+    viewState: HeroesListViewState,
+    onHeroClicked: (HeroListItem) -> Unit = {}
+) {
 
     val (_, list) = viewState
 
@@ -166,8 +170,12 @@ fun HeroesListContent(viewState: HeroesListViewState) {
                         }
                     }
 
-                    items(items, key = { it.id }) { item ->
-                        Card(modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)) {
+                    items(items, key = { e -> e.id }) { item ->
+                        Card(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 4.dp, end = 4.dp)
+                            .clickable { onHeroClicked(item) }
+                        ) {
                             val (_, _, name, imageUrl) = item
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 AsyncImage(
@@ -212,6 +220,6 @@ private class HeroesListViewStatePreviewParamProvider:
     }
 
     override val values: Sequence<HeroesListViewState>
-        get() = listOf(defaultState).asSequence()
+        get() = sequenceOf(defaultState)
 }
 
