@@ -1,6 +1,7 @@
 package com.sircjarr.marvelrivalsherolookup.core.ui.screens.herodetails
 
 import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.GetHeroDetailsUseCase
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.LoadHeroDetailsUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -9,7 +10,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HeroDetailsViewModel(
-    private val getHeroDetailsUseCase: GetHeroDetailsUseCase
+    private val getHeroDetailsUseCase: GetHeroDetailsUseCase,
+    private val loadHeroDetailsUseCase: LoadHeroDetailsUseCase
 ) {
     val viewState = MutableStateFlow(HeroDetailsViewState())
 
@@ -19,6 +21,20 @@ class HeroDetailsViewModel(
 
     fun init(heroName: String) {
         this.heroName = heroName
+
+        scope.launch(Dispatchers.IO) {
+            getHeroDetailsUseCase(heroName).collect { details ->
+                details?.let {
+                    withContext(Dispatchers.Main) {
+                        viewState.value = viewState.value.copy(
+                            isLoading = false,
+                            details
+                        )
+                    }
+                }
+            }
+        }
+
         loadHeroDetails(heroName)
     }
 
@@ -28,14 +44,7 @@ class HeroDetailsViewModel(
         )
 
         scope.launch(Dispatchers.IO) {
-            val hero = getHeroDetailsUseCase(name)
-
-            withContext(Dispatchers.Main) {
-                viewState.value = viewState.value.copy(
-                    isLoading = false,
-                    hero
-                )
-            }
+            loadHeroDetailsUseCase(name)
         }
     }
 }

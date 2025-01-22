@@ -5,6 +5,7 @@ import com.sircjarr.marvelrivalsherolookup.core.domain.repo.HeroDetailsRepo
 import com.sircjarr.marvelrivalsherolookup.core.domain.repo.HeroesListRepo
 import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.GetHeroDetailsUseCase
 import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.GetHeroesListUseCase
+import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.LoadHeroDetailsUseCase
 import com.sircjarr.marvelrivalsherolookup.core.domain.usecase.LoadHeroesListUseCase
 import com.sircjarr.marvelrivalsherolookup.kmp.api.HeroApi
 import com.sircjarr.marvelrivalsherolookup.core.ui.screens.herodetails.HeroDetailsViewModel
@@ -29,5 +30,6 @@ val sharedModule = module {
     // Hero Details screen
     singleOf(::HeroDetailsRepo) { createdAtStart() }
     factoryOf(::GetHeroDetailsUseCase) // Inject on-demand
+    factoryOf(::LoadHeroDetailsUseCase)
     factoryOf(::HeroDetailsViewModel)
 }
