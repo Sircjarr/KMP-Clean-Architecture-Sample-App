@@ -11,5 +11,5 @@ data class HeroDetailsModel(
 )
 
 fun HeroDetailsDto.toHeroDetailsModel() = HeroDetailsModel(
-    title, name, tag, description, images[3]
+    title, name, tag, description, images[2]
 )
