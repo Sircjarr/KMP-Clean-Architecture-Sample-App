@@ -1,6 +1,6 @@
 package com.sircjarr.marvelrivalsherolookup.feature.heroeslist.domain
 
-import com.sircjarr.marvelrivalsherolookup.api.data_hero.HeroListItemDto
+import com.sircjarr.marvelrivalsherolookup.feature_api.data_hero.HeroListItemDto
 
 data class HeroListItemModel(
     val id: String,

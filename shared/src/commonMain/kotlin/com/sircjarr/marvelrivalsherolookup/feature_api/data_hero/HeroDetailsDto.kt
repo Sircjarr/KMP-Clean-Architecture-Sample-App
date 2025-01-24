@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup.api.data_hero
+package com.sircjarr.marvelrivalsherolookup.feature_api.data_hero
 
 import kotlinx.serialization.Serializable
 

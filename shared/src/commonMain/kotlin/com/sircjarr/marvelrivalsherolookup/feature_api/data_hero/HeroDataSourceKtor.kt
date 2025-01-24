@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup.api.data_hero
+package com.sircjarr.marvelrivalsherolookup.feature_api.data_hero
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 private const val URL_HEROES_LIST = "https://mrapi.org/api/heroes"
 private const val URL_HERO_DETAILS = "https://mrapi.org/api/hero/"
 
-class HeroKtorApi: HeroDataSource {
+class HeroDataSourceKtor: HeroDataSource {
 
     override suspend fun getHeroesList(): List<HeroListItemDto> {
         return try {

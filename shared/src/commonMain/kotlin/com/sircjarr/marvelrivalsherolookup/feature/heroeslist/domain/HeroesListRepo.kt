@@ -1,6 +1,6 @@
 package com.sircjarr.marvelrivalsherolookup.feature.heroeslist.domain
 
-import com.sircjarr.marvelrivalsherolookup.api.data_hero.HeroDataSource
+import com.sircjarr.marvelrivalsherolookup.feature_api.data_hero.HeroDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
