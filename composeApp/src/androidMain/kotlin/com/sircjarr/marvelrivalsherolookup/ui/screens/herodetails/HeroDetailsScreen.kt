@@ -2,6 +2,7 @@ package com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,8 +10,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Public
@@ -19,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
@@ -28,6 +33,7 @@ import com.sircjarr.marvelrivalsherolookup.core.ui.screens.herodetails.HeroDetai
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
 
 @Composable
+@Preview(showBackground = true)
 fun HeroDetailsScreen(
     @PreviewParameter(provider = HeroesListViewStatePreviewParamProvider::class)
     viewState: HeroDetailsViewState,
@@ -47,7 +53,7 @@ fun HeroDetailsContent(
 ) {
     val (name, realName, `class`, description, imageUrl) = heroDetails
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Column {
             Box (
                 modifier = Modifier
@@ -62,25 +68,39 @@ fun HeroDetailsContent(
                 )
             }
 
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 16.dp, bottom = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column {
-                    Text(name)
-                    Text(realName)
+                    Text(text = name, style = MaterialTheme.typography.h3)
+                    Text(realName, style = MaterialTheme.typography.subtitle1)
                 }
 
-                Spacer(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.weight(1f))
 
                 Icon(
-                    modifier = Modifier.clickable { onGlobeIconClicked(heroDetails) },
+                    modifier = Modifier.clickable { onGlobeIconClicked(heroDetails) }.size(40.dp),
                     imageVector = Icons.Default.Public,
-                    contentDescription = ""
+                    contentDescription = "",
+                    tint = Color.Blue
                 )
             }
 
-            Text(description)
+            Spacer(Modifier.height(24.dp))
 
-            Card {
-                Text(`class`)
+            Column(modifier = Modifier.fillMaxSize()) {
+
+                Box(Modifier, contentAlignment = Alignment.TopCenter) {
+                    Text(text = description, style = MaterialTheme.typography.body1)
+                }
+
+                Spacer(Modifier.height(24.dp))
+
+                Column {
+                    Text("Stats", style = MaterialTheme.typography.h4)
+
+                    Card(Modifier.fillMaxWidth().padding(4.dp)) {
+                        Text("Card")
+                    }
+                }
             }
         }
     }
@@ -96,7 +116,7 @@ private class HeroesListViewStatePreviewParamProvider:
                     name = "Iron Man",
                     realName = "Anthony \"Tony\" Stark",
                     `class` = "DUELIST",
-                    description = "Armed with superious intellect and a nanotech battlesuit of his own design",
+                    description = "Armed with superior intellect and a nanotech battlesuit of his own design, Tony Stark stands alongside gods as the Invincible Iron Man. His state of the art armor turns any battlefield into his personal playground, allowing him to steal the spotlight he so desperately desires.",
                     imageUrl = ""
                 )
             )
