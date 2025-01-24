@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup
+package com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -35,9 +35,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.sircjarr.marvelrivalsherolookup.R
+import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroListItem
+import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroesListViewState
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
-import com.sircjarr.marvelrivalsherolookup.core.ui.model.HeroListItem
-import com.sircjarr.marvelrivalsherolookup.core.ui.screens.heroeslist.HeroesListViewState
 import kotlinx.coroutines.launch
 
 @Composable

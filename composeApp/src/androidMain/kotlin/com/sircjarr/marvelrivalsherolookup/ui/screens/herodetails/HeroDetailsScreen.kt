@@ -2,7 +2,6 @@ package com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,8 +27,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.sircjarr.marvelrivalsherolookup.core.ui.model.HeroDetails
-import com.sircjarr.marvelrivalsherolookup.core.ui.screens.herodetails.HeroDetailsViewState
+import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroDetails
+import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroDetailsViewState
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
 
 @Composable

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
-import com.sircjarr.marvelrivalsherolookup.kmp.di.sharedModule
+import com.sircjarr.marvelrivalsherolookup.di.commonDiModule
 import com.sircjarr.marvelrivalsherolookup.di.composeAppModule
 import com.sircjarr.marvelrivalsherolookup.ui.MainNavHost
 import org.koin.core.context.GlobalContext.startKoin
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
 
         // Inject dependencies per module definitions
         startKoin {
-            modules(sharedModule, composeAppModule)
+            modules(commonDiModule, composeAppModule)
         }
 
         setContent {

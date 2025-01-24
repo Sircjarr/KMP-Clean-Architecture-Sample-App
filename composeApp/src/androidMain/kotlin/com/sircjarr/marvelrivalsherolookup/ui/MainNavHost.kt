@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.sircjarr.marvelrivalsherolookup.HeroesListScreen
-import com.sircjarr.marvelrivalsherolookup.core.ui.screens.Screen
+import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListScreen
+import com.sircjarr.marvelrivalsherolookup.api.ui.Screen
 import com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails.HeroDetailsAndroidViewModel
 import com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails.HeroDetailsScreen
 import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListAndroidViewModel
