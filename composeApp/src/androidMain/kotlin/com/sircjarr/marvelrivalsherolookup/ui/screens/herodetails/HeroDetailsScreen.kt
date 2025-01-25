@@ -36,7 +36,7 @@ import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
 fun HeroDetailsScreen(
     @PreviewParameter(provider = HeroesListViewStatePreviewParamProvider::class)
     viewState: HeroDetailsViewState,
-    onGlobeIconClicked: (HeroDetails) -> Unit = {}
+    onGlobeIconClicked: () -> Unit = {}
 ) {
     if (viewState.isLoading) {
         LoadingMessage(modifier = Modifier.fillMaxSize(), msg = "Fetching hero details. Please wait....")
@@ -48,7 +48,7 @@ fun HeroDetailsScreen(
 @Composable
 fun HeroDetailsContent(
     heroDetails: HeroDetails,
-    onGlobeIconClicked: (HeroDetails) -> Unit
+    onGlobeIconClicked: () -> Unit
 ) {
     val (name, realName, `class`, description, imageUrl) = heroDetails
 
@@ -76,7 +76,7 @@ fun HeroDetailsContent(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Icon(
-                    modifier = Modifier.clickable { onGlobeIconClicked(heroDetails) }.size(40.dp),
+                    modifier = Modifier.clickable { onGlobeIconClicked() }.size(40.dp),
                     imageVector = Icons.Default.Public,
                     contentDescription = "",
                     tint = Color.Blue

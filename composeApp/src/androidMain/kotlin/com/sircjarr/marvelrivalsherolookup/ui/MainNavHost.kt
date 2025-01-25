@@ -14,6 +14,8 @@ import com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails.HeroDetailsAnd
 import com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails.HeroDetailsScreen
 import com.sircjarr.marvelrivalsherolookup.ui.screens.heroeslist.HeroesListAndroidViewModel
 import org.koin.androidx.compose.koinViewModel
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun MainNavHost() {
@@ -31,24 +33,32 @@ fun MainNavHost() {
             }
 
             HeroesListScreen(viewState, onHeroClicked = { heroListItem ->
-                navController.navigate("${Screen.HERO_DETAILS.route}/${heroListItem.name}")
+                // Encode args with '/' that affect Compose Navigation
+                val encodedUrl = URLEncoder.encode(heroListItem.webUrl, StandardCharsets.UTF_8.toString())
+                navController.navigate("${Screen.HERO_DETAILS.route}/${heroListItem.name}/$encodedUrl")
             })
         }
         composable(
-            route = "${Screen.HERO_DETAILS.route}/{heroName}",
-            arguments = listOf(navArgument("heroName") {
-                type = NavType.StringType
-            })
+            route = "${Screen.HERO_DETAILS.route}/{heroName}/{webUrl}",
+            arguments = listOf(
+                navArgument("heroName") {
+                    type = NavType.StringType
+                },
+                navArgument("webUrl") {
+                    type = NavType.StringType
+                }
+            )
         ) { backStackEntry ->
             val viewModel = koinViewModel<HeroDetailsAndroidViewModel>().viewModel
             val viewState = viewModel.viewState.collectAsState().value
             val heroName = backStackEntry.arguments?.getString("heroName")!!
+            val webUrl = backStackEntry.arguments?.getString("webUrl")!!
 
             LaunchedEffect(true) {
-                viewModel.init(heroName)
+                viewModel.init(heroName, webUrl)
             }
 
-            HeroDetailsScreen(viewState)
+            HeroDetailsScreen(viewState, onGlobeIconClicked = viewModel::launchHeroUrlInExternalBrowser)
         }
     }
 }
