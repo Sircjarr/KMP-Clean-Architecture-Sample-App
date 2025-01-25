@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.unit.sp
 import com.sircjarr.marvelrivalsherolookup.di.commonDiModule
 import com.sircjarr.marvelrivalsherolookup.di.composeAppModule
 import com.sircjarr.marvelrivalsherolookup.di.intermediateSetAndroidModule
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MaterialTheme {
+            MaterialTheme(typography = MaterialTheme.typography.copy(body1 = MaterialTheme.typography.body1.copy(fontSize = 20.sp))) {
                 MainNavHost()
             }
         }

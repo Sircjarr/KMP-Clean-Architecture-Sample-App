@@ -9,4 +9,11 @@ data class HeroDetailsDto(
     val tag: String,
     val description: String,
     val images: List<String>,
+    val stats: List<HeroStatDto>
+)
+
+@Serializable
+data class HeroStatDto(
+    val title: String,
+    val value: String
 )
