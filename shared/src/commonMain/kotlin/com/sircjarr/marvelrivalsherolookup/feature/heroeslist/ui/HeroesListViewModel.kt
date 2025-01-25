@@ -18,8 +18,7 @@ class HeroesListViewModel(
     // Todo: scope to viewModelScope
     private val scope = CoroutineScope(Dispatchers.IO)
 
-    fun init() {
-
+    init {
         scope.launch {
             getHeroesListUseCase().collect { heroesList ->
                 heroesList?.let { list ->

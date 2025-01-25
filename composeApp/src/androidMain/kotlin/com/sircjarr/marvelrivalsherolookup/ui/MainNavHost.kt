@@ -28,10 +28,6 @@ fun MainNavHost() {
             val viewModel = koinViewModel<HeroesListAndroidViewModel>().viewModel
             val viewState = viewModel.viewState.collectAsState().value
 
-            LaunchedEffect(true) {
-                viewModel.init()
-            }
-
             HeroesListScreen(viewState, onHeroClicked = { heroListItem ->
                 // Encode args with '/' that affect Compose Navigation
                 val encodedUrl = URLEncoder.encode(heroListItem.webUrl, StandardCharsets.UTF_8.toString())
