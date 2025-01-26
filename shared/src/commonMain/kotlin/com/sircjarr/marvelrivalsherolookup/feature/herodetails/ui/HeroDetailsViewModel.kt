@@ -17,10 +17,9 @@ class HeroDetailsViewModel(
 ) {
     val viewState = MutableStateFlow(HeroDetailsViewState())
 
-    // Todo: scope to viewModelScope
     private val scope = CoroutineScope(Dispatchers.IO)
-    lateinit var heroName: String
-    lateinit var webUrl: String
+    private lateinit var heroName: String
+    private lateinit var webUrl: String
 
     fun init(heroName: String, webUrl: String) {
         this.heroName = heroName

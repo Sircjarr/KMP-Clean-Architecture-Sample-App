@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup.ui
+package com.sircjarr.marvelrivalsherolookup.ui.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

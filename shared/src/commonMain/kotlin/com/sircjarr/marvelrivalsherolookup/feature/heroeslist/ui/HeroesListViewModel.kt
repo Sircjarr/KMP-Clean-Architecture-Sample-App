@@ -14,8 +14,6 @@ class HeroesListViewModel(
     private val loadHeroesListUseCase: LoadHeroesListUseCase
 ) {
     val viewState = MutableStateFlow(HeroesListViewState())
-
-    // Todo: scope to viewModelScope
     private val scope = CoroutineScope(Dispatchers.IO)
 
     init {

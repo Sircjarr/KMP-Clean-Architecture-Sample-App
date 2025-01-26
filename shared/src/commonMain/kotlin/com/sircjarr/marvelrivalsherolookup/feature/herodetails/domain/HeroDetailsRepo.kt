@@ -29,7 +29,7 @@ class HeroDetailsRepo(private val heroDataSource: HeroDataSource) {
         return flow
     }
 
-    fun hasCached(nameArg: String): Boolean {
+    private fun hasCached(nameArg: String): Boolean {
         return heroDetailsMap.containsKey(nameArg)
     }
 }

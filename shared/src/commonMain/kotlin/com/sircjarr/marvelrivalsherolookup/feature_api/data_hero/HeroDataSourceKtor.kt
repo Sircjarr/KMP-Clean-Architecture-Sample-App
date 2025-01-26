@@ -19,13 +19,10 @@ class HeroDataSourceKtor: HeroDataSource {
     override suspend fun getHeroesList(): List<HeroListItemDto> {
         return try {
             buildClient().use { client ->
-                client.get(URL_HEROES_LIST).body<List<HeroListItemDto>>().also {
-                    println("response: $it")
-                }
+                client.get(URL_HEROES_LIST).body<List<HeroListItemDto>>()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            throw IOException()
+            throw handleEx(e)
         }
     }
 
@@ -35,27 +32,26 @@ class HeroDataSourceKtor: HeroDataSource {
 
         return try {
             buildClient().use { client ->
-                client.get("$URL_HERO_DETAILS$heroNameArg").body<HeroDetailsDto>().also {
-                    println("response details: $it")
-                }
+                client.get("$URL_HERO_DETAILS$heroNameArg").body<HeroDetailsDto>()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            throw IOException()
+            throw handleEx(e)
         }
     }
 
     override suspend fun getHeroRates(): HeroRatesDto {
         return try {
             buildClient().use { client ->
-                client.get(URL_HERO_RATES).body<HeroRatesDto>().also {
-                    println("response details: $it")
-                }
+                client.get(URL_HERO_RATES).body<HeroRatesDto>()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            throw IOException()
+            throw handleEx(e)
         }
+    }
+
+    private fun handleEx(e: Exception): Exception {
+        e.printStackTrace()
+        return IOException()
     }
 
     private fun buildClient(): HttpClient {

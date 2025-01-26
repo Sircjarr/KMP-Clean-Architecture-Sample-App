@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 class GetHeroDetailsUseCase(
     private val heroDetailsRepo: HeroDetailsRepo
 ) {
-    suspend operator fun invoke(nameArg: String): Flow<HeroDetails?> {
+    operator fun invoke(nameArg: String): Flow<HeroDetails?> {
         return heroDetailsRepo.getFlow(nameArg).map { it?.toHeroDetails() }
     }
 }

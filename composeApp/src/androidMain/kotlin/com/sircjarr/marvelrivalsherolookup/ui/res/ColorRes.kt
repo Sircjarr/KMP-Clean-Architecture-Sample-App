@@ -1,4 +1,4 @@
-package com.sircjarr.marvelrivalsherolookup.ui
+package com.sircjarr.marvelrivalsherolookup.ui.res
 
 import androidx.compose.ui.graphics.Color
 

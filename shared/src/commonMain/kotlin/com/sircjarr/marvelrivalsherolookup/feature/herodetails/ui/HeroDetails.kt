@@ -1,8 +1,6 @@
 package com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui
 
 import com.sircjarr.marvelrivalsherolookup.feature.herodetails.domain.HeroDetailsModel
-import com.sircjarr.marvelrivalsherolookup.feature.herodetails.domain.HeroStatModel
-import kotlinx.serialization.Serializable
 
 data class HeroDetails(
     val name: String,
