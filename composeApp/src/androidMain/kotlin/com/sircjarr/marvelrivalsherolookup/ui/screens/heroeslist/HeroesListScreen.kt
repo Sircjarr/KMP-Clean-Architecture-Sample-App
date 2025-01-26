@@ -227,7 +227,7 @@ fun HeroesListContent(
                                     textAlign = TextAlign.End,
                                     color = winRate.winRateColor
                                 )
-                                Text(text = "Win rate", fontSize = 14.sp, color = Color.LightGray)
+                                Text(text = "Win rate", fontSize = 14.sp, color = Color.Gray)
                             }
                             Column(
                                 modifier = Modifier.width(75.dp),
@@ -240,7 +240,7 @@ fun HeroesListContent(
                                     textAlign = TextAlign.End,
                                     color = pickRate.pickRateColor
                                 )
-                                Text("Pick rate", fontSize = 14.sp, color = Color.LightGray)
+                                Text("Pick rate", fontSize = 14.sp, color = Color.Gray)
                             }
                         }
                     }

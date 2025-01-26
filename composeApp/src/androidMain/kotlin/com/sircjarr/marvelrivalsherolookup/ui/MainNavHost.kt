@@ -31,17 +31,23 @@ fun MainNavHost() {
             HeroesListScreen(viewState, onHeroClicked = { heroListItem ->
                 // Encode args with '/' that affect Compose Navigation
                 val encodedUrl = URLEncoder.encode(heroListItem.webUrl, StandardCharsets.UTF_8.toString())
-                navController.navigate("${Screen.HERO_DETAILS.route}/${heroListItem.name}/$encodedUrl")
+                navController.navigate("${Screen.HERO_DETAILS.route}/${heroListItem.name}/$encodedUrl/${heroListItem.pickRate}/${heroListItem.winRate}")
             })
         }
         composable(
-            route = "${Screen.HERO_DETAILS.route}/{heroName}/{webUrl}",
+            route = "${Screen.HERO_DETAILS.route}/{heroName}/{webUrl}/{pickRate}/{winRate}",
             arguments = listOf(
                 navArgument("heroName") {
                     type = NavType.StringType
                 },
                 navArgument("webUrl") {
                     type = NavType.StringType
+                },
+                navArgument("pickRate") {
+                    type = NavType.FloatType
+                },
+                navArgument("winRate") {
+                    type = NavType.FloatType
                 }
             )
         ) { backStackEntry ->
@@ -49,12 +55,14 @@ fun MainNavHost() {
             val viewState = viewModel.viewState.collectAsState().value
             val heroName = backStackEntry.arguments?.getString("heroName")!!
             val webUrl = backStackEntry.arguments?.getString("webUrl")!!
+            val pickRate = backStackEntry.arguments?.getFloat("pickRate")!!
+            val winRate = backStackEntry.arguments?.getFloat("winRate")!!
 
             LaunchedEffect(true) {
                 viewModel.init(heroName, webUrl)
             }
 
-            HeroDetailsScreen(viewState, onGlobeIconClicked = viewModel::launchHeroUrlInExternalBrowser)
+            HeroDetailsScreen(viewState, pickRate = pickRate, winRate = winRate, onGlobeIconClicked = viewModel::launchHeroUrlInExternalBrowser)
         }
     }
 }

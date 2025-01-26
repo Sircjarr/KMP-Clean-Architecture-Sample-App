@@ -10,6 +10,7 @@ data class HeroDetails(
     val `class`: String,
     val description: String,
     val imageUrl: String,
+    val iconUrl: String,
     val stats: List<HeroStat>
 )
 
@@ -19,5 +20,5 @@ data class HeroStat(
 )
 
 fun HeroDetailsModel.toHeroDetails() = HeroDetails(
-    name, realName, `class`, description, imageUrl, stats.map { HeroStat(it.title, it.value) }
+    name, realName, `class`, description, imageUrl, iconUrl, stats.map { HeroStat(it.title, it.value) }
 )

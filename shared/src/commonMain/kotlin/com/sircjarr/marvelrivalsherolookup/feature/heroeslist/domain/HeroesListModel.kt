@@ -23,7 +23,7 @@ fun List<HeroListItemDto>.toHeroListItemModel(rates: List<HeroRateDto>) = map { 
 
     HeroListItemModel(
         id,
-        tag.ifEmpty { "ROGUE" },
+        tag.ifEmpty { "STRATEGIST" },
         title,
         images.first(),
         url,
