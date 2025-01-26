@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -197,6 +200,7 @@ fun HeroesListContent(
                     items(items, key = { e -> e.id }) { item ->
                         val (_, _, name, imageUrl, _, pickRate, winRate) = item
                         Row(modifier = Modifier
+                            .height(IntrinsicSize.Min)
                             .fillMaxWidth()
                             .padding(start = 8.dp, end = 8.dp)
                             .clickable { onHeroClicked(item) },
@@ -215,6 +219,7 @@ fun HeroesListContent(
                             )
 
                             Spacer(Modifier.weight(1f))
+                            Divider(modifier = Modifier.fillMaxHeight().width(1.dp).padding(top = 12.dp, bottom = 12.dp))
 
                             Column(
                                 modifier = Modifier.width(75.dp),
@@ -229,6 +234,9 @@ fun HeroesListContent(
                                 )
                                 Text(text = "Win rate", fontSize = 14.sp, color = Color.Gray)
                             }
+
+                            Divider(modifier = Modifier.fillMaxHeight().width(1.dp).padding(top = 12.dp, bottom = 12.dp))
+
                             Column(
                                 modifier = Modifier.width(75.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
