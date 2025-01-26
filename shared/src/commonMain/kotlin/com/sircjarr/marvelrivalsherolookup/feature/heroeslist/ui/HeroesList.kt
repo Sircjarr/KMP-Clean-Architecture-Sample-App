@@ -7,10 +7,12 @@ data class HeroListItem(
     val `class`: String,
     val name: String,
     val imageUrl: String,
-    val webUrl: String
+    val webUrl: String,
+    val pickRate: Double,
+    val winRate: Double
 )
 
 fun List<HeroListItemModel>.toHeroesList() = map { hero ->
-    val (id, `class`, name, imageUrl, webUrl) = hero
-    HeroListItem(id, `class`, name, imageUrl, webUrl)
+    val (id, `class`, name, imageUrl, webUrl, pickRate, winRate) = hero
+    HeroListItem(id, `class`, name, imageUrl, webUrl, pickRate, winRate)
 }

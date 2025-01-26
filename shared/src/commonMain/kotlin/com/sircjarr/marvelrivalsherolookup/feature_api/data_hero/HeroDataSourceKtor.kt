@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 
 private const val URL_HEROES_LIST = "https://mrapi.org/api/heroes"
 private const val URL_HERO_DETAILS = "https://mrapi.org/api/hero/"
+private const val URL_HERO_RATES = "https://mrapi.org/api/heroes-stats/pc"
 
 class HeroDataSourceKtor: HeroDataSource {
 
@@ -35,6 +36,19 @@ class HeroDataSourceKtor: HeroDataSource {
         return try {
             buildClient().use { client ->
                 client.get("$URL_HERO_DETAILS$heroNameArg").body<HeroDetailsDto>().also {
+                    println("response details: $it")
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw IOException()
+        }
+    }
+
+    override suspend fun getHeroRates(): HeroRatesDto {
+        return try {
+            buildClient().use { client ->
+                client.get(URL_HERO_RATES).body<HeroRatesDto>().also {
                     println("response details: $it")
                 }
             }

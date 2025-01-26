@@ -15,7 +15,7 @@ fun LoadingMessage(modifier: Modifier = Modifier, msg: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(color = ColorRes.marvelRed)
         Text(msg)
     }
 }
