@@ -1,5 +1,6 @@
 package com.sircjarr.marvelrivalsherolookup.ui.screens.herodetails
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -57,8 +59,12 @@ fun HeroDetailsScreen(
 
     when {
         viewState.isLoading -> {
-            LoadingMessage(modifier = Modifier.fillMaxSize(), msg = "Fetching hero details. Please wait....")
+            LoadingMessage(
+                modifier = Modifier.fillMaxSize(),
+                msg = "Fetching hero details. Please wait...."
+            )
         }
+
         viewState.err != null -> {
             ErrorMessageWithRetry(
                 Modifier.fillMaxSize(),
@@ -66,8 +72,14 @@ fun HeroDetailsScreen(
                 onRetryButtonClicked
             )
         }
+
         else -> {
-            HeroDetailsContent(checkNotNull(viewState.heroDetails), pickRate, winRate, onGlobeIconClicked = onGlobeIconClicked)
+            HeroDetailsContent(
+                checkNotNull(viewState.heroDetails),
+                pickRate,
+                winRate,
+                onGlobeIconClicked = onGlobeIconClicked
+            )
         }
     }
 }
@@ -82,31 +94,37 @@ fun HeroDetailsContent(
     val (name, realName, `class`, description, imageUrl, iconUrl, stats) = heroDetails
     val scrollState = rememberScrollState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .background(color = Color.Black)
-            ) {
-                AsyncImage(
-                    model = imageUrl,
-                    contentScale = ContentScale.Inside,
-                    contentDescription = null
-                )
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box {
+            Column {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
+                        .background(color = Color.Black)
+                ) {
+                    AsyncImage(
+                        model = imageUrl,
+                        contentScale = ContentScale.Inside,
+                        contentDescription = null
+                    )
 
-                Icon(
-                    modifier = Modifier.padding(8.dp).clickable { onGlobeIconClicked() }.size(40.dp).align(Alignment.TopEnd),
-                    imageVector = Icons.Default.Link,
-                    contentDescription = "",
-                    tint = Color.DarkGray
-                )
-            }
+                    Icon(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .clickable { onGlobeIconClicked() }
+                            .size(40.dp)
+                            .align(Alignment.TopEnd),
+                        imageVector = Icons.Default.Link,
+                        contentDescription = "",
+                        tint = Color.DarkGray
+                    )
+                }
 
-            Column(modifier = Modifier.padding(8.dp).scrollable(scrollState, Orientation.Vertical)) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = name, style = MaterialTheme.typography.h3)
@@ -114,75 +132,125 @@ fun HeroDetailsContent(
                     Spacer(modifier = Modifier.weight(1f))
 
                     AsyncImage(
-                        modifier = Modifier.clickable { onGlobeIconClicked() }.size(40.dp),
+                        modifier = Modifier
+                            .clickable { onGlobeIconClicked() }
+                            .size(40.dp),
                         model = iconUrl,
                         contentDescription = "",
                     )
                 }
+            }
+        }
 
-                Spacer(Modifier.height(4.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(8.dp)
+        ) {
 
-                Box(Modifier.background(ColorRes.gold).padding(4.dp)) {
-                    Text(`class`, color = Color.White, fontSize = 16.sp)
+            Spacer(Modifier.height(4.dp))
+
+            Box(
+                Modifier
+                    .background(ColorRes.gold)
+                    .padding(4.dp)
+            ) {
+                Text(`class`, color = Color.White, fontSize = 16.sp)
+            }
+
+            Spacer(Modifier.height(14.dp))
+
+            Column(modifier = Modifier.fillMaxSize()) {
+
+                Box(Modifier, contentAlignment = Alignment.TopCenter) {
+                    Text(text = description, style = MaterialTheme.typography.body1)
                 }
 
-                Spacer(Modifier.height(14.dp))
+                Spacer(Modifier.height(18.dp))
 
-                Column(modifier = Modifier.fillMaxSize()) {
+                Card(Modifier.fillMaxWidth()) {
 
-                    Box(Modifier, contentAlignment = Alignment.TopCenter) {
-                        Text(text = description, style = MaterialTheme.typography.body1)
-                    }
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(8.dp),
+                            text = "Base stats",
+                            style = MaterialTheme.typography.h5
+                        )
+                        Divider(
+                            Modifier
+                                .height(1.dp)
+                                .fillMaxWidth()
+                                .padding(start = 2.dp, end = 2.dp)
+                        )
 
-                    Spacer(Modifier.height(18.dp))
-
-                    Card(Modifier.fillMaxWidth()) {
-
-                        Column {
-                            Text(
-                                modifier = Modifier.padding(8.dp),
-                                text = "Base stats",
-                                style = MaterialTheme.typography.h5
-                            )
-                            Divider(
-                                Modifier.height(1.dp).fillMaxWidth()
-                                    .padding(start = 2.dp, end = 2.dp)
-                            )
-
-                            stats.forEach {
-                                Row(
-                                    Modifier.fillMaxWidth().padding(
+                        stats.forEach {
+                            Row(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(
                                         start = 8.dp,
                                         end = 8.dp,
                                         top = 4.dp,
                                         bottom = 4.dp
                                     )
-                                ) {
-                                    Text(text = it.title, style = MaterialTheme.typography.body1)
-                                    Spacer(Modifier.weight(1f))
-                                    Text(text = it.value, style = MaterialTheme.typography.body1)
-                                }
+                            ) {
+                                Text(
+                                    text = it.title,
+                                    style = MaterialTheme.typography.body1
+                                )
+                                Spacer(Modifier.weight(1f))
+                                Text(
+                                    text = it.value,
+                                    style = MaterialTheme.typography.body1
+                                )
                             }
                         }
                     }
+                }
 
-                    Spacer(Modifier.height(18.dp))
+                Spacer(Modifier.height(18.dp))
 
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                        Card(Modifier.weight(1f).aspectRatio(1f)) {
-                            Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text(text = "$winRate%", color = winRate.winRateColor, fontSize = 32.sp)
-                                Text("Win rate", modifier = Modifier.padding(8.dp))
-                            }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Card(
+                        Modifier
+                            .weight(1f)
+                            .aspectRatio(1f)
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "$winRate%",
+                                color = winRate.winRateColor,
+                                fontSize = 32.sp
+                            )
+                            Text("Win rate", modifier = Modifier.padding(8.dp))
                         }
+                    }
 
-                        Spacer(Modifier.width(18.dp))
+                    Spacer(Modifier.width(18.dp))
 
-                        Card(Modifier.weight(1f).aspectRatio(1f)) {
-                            Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text(text = "$pickRate%", color = pickRate.pickRateColor, fontSize = 32.sp)
-                                Text("Pick rate", modifier = Modifier.padding(8.dp))
-                            }
+                    Card(
+                        Modifier
+                            .weight(1f)
+                            .aspectRatio(1f)
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "$pickRate%",
+                                color = pickRate.pickRateColor,
+                                fontSize = 32.sp
+                            )
+                            Text("Pick rate", modifier = Modifier.padding(8.dp))
                         }
                     }
                 }
@@ -191,27 +259,27 @@ fun HeroDetailsContent(
     }
 }
 
-private class HeroesListViewStatePreviewParamProvider:
+private class HeroesListViewStatePreviewParamProvider :
     PreviewParameterProvider<HeroDetailsViewState> {
 
-        private val defaultState by lazy {
-            HeroDetailsViewState(
-                isLoading = false,
-                heroDetails = HeroDetails(
-                    name = "Iron Man",
-                    realName = "Anthony \"Tony\" Stark",
-                    `class` = "DUELIST",
-                    description = "Armed with superior intellect and a nanotech battlesuit of his own design, Tony Stark stands alongside gods as the Invincible Iron Man. His state of the art armor turns any battlefield into his personal playground, allowing him to steal the spotlight he so desperately desires.",
-                    imageUrl = "",
-                    iconUrl = "",
-                    stats = listOf(
-                        HeroStat("Health", "250"),
-                        HeroStat("Movement Speed", "6 m/s"),
-                        HeroStat("Movement Mode", "Flight"),
-                    )
+    private val defaultState by lazy {
+        HeroDetailsViewState(
+            isLoading = false,
+            heroDetails = HeroDetails(
+                name = "Iron Man",
+                realName = "Anthony \"Tony\" Stark",
+                `class` = "DUELIST",
+                description = "Armed with superior intellect and a nanotech battlesuit of his own design, Tony Stark stands alongside gods as the Invincible Iron Man. His state of the art armor turns any battlefield into his personal playground, allowing him to steal the spotlight he so desperately desires.",
+                imageUrl = "",
+                iconUrl = "",
+                stats = listOf(
+                    HeroStat("Health", "250"),
+                    HeroStat("Movement Speed", "6 m/s"),
+                    HeroStat("Movement Mode", "Flight"),
                 )
             )
-        }
+        )
+    }
 
     override val values: Sequence<HeroDetailsViewState>
         get() = sequenceOf(defaultState)
