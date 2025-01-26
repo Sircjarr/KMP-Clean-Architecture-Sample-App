@@ -124,7 +124,7 @@ fun HeroDetailsContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 16.dp),
+                        .padding(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = name, style = MaterialTheme.typography.h3)
@@ -146,11 +146,8 @@ fun HeroDetailsContent(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(scrollState)
-                .padding(8.dp)
+                .padding(8.dp, top = 0.dp)
         ) {
-
-            Spacer(Modifier.height(4.dp))
-
             Box(
                 Modifier
                     .background(ColorRes.gold)
