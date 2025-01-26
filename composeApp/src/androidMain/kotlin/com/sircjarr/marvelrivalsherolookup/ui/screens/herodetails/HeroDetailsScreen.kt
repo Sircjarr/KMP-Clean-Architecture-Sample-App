@@ -39,6 +39,7 @@ import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroDetails
 import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroDetailsViewState
 import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroStat
 import com.sircjarr.marvelrivalsherolookup.ui.ColorRes
+import com.sircjarr.marvelrivalsherolookup.ui.ErrorMessageWithRetry
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
 import com.sircjarr.marvelrivalsherolookup.ui.pickRateColor
 import com.sircjarr.marvelrivalsherolookup.ui.winRateColor
@@ -50,12 +51,24 @@ fun HeroDetailsScreen(
     viewState: HeroDetailsViewState,
     pickRate: Float = 5.5f,
     winRate: Float = 53.31f,
-    onGlobeIconClicked: () -> Unit = {}
+    onGlobeIconClicked: () -> Unit = {},
+    onRetryButtonClicked: () -> Unit = {}
 ) {
-    if (viewState.isLoading) {
-        LoadingMessage(modifier = Modifier.fillMaxSize(), msg = "Fetching hero details. Please wait....")
-    } else {
-        HeroDetailsContent(checkNotNull(viewState.heroDetails), pickRate, winRate, onGlobeIconClicked = onGlobeIconClicked)
+
+    when {
+        viewState.isLoading -> {
+            LoadingMessage(modifier = Modifier.fillMaxSize(), msg = "Fetching hero details. Please wait....")
+        }
+        viewState.err != null -> {
+            ErrorMessageWithRetry(
+                Modifier.fillMaxSize(),
+                checkNotNull(viewState.err),
+                onRetryButtonClicked
+            )
+        }
+        else -> {
+            HeroDetailsContent(checkNotNull(viewState.heroDetails), pickRate, winRate, onGlobeIconClicked = onGlobeIconClicked)
+        }
     }
 }
 

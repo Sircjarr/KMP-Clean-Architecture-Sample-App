@@ -64,7 +64,12 @@ fun MainNavHost() {
                 viewModel.init(heroName, webUrl)
             }
 
-            HeroDetailsScreen(viewState, pickRate = pickRate, winRate = winRate, onGlobeIconClicked = viewModel::launchHeroUrlInExternalBrowser)
+            HeroDetailsScreen(viewState,
+                pickRate = pickRate,
+                winRate = winRate,
+                onGlobeIconClicked = viewModel::launchHeroUrlInExternalBrowser,
+                onRetryButtonClicked = { viewModel.loadHeroDetails(heroName) }
+            )
         }
     }
 }

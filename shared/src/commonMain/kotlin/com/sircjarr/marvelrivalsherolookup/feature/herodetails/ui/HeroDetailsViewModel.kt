@@ -32,6 +32,7 @@ class HeroDetailsViewModel(
                     withContext(Dispatchers.Main) {
                         viewState.value = viewState.value.copy(
                             isLoading = false,
+                            err = null,
                             details
                         )
                     }
@@ -48,7 +49,14 @@ class HeroDetailsViewModel(
         )
 
         scope.launch(Dispatchers.IO) {
-            loadHeroDetailsUseCase(name)
+            loadHeroDetailsUseCase(name).onFailure {
+                withContext(Dispatchers.Main) {
+                    viewState.value = viewState.value.copy(
+                        isLoading = false,
+                        err = "Failed loading hero details. Check your network and try again."
+                    )
+                }
+            }
         }
     }
 
