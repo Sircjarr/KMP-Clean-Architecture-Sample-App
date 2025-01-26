@@ -33,6 +33,7 @@ import coil3.compose.AsyncImage
 import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroListItem
 import com.sircjarr.marvelrivalsherolookup.ui.res.pickRateColor
 import com.sircjarr.marvelrivalsherolookup.ui.res.winRateColor
+import com.sircjarr.marvelrivalsherolookup.ui.util.pascalCase
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -106,8 +107,7 @@ fun HeroListItemRow(item: HeroListItem, onHeroClicked: (HeroListItem) -> Unit) {
         )
         Text(
             modifier = Modifier.padding(start = 8.dp),
-            text = name.lowercase().split(" ")
-                .joinToString(" ") { it.replaceFirstChar { it.uppercase() } },
+            text = name.pascalCase(),
             fontSize = 16.sp
         )
 

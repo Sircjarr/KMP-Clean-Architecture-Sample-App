@@ -17,7 +17,7 @@ fun HeroNameHeader(modifier: Modifier, name: String, iconUrl: String) {
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = name, style = MaterialTheme.typography.h3)
+        Text(text = name, style = MaterialTheme.typography.h4)
 
         Spacer(modifier = Modifier.weight(1f))
 

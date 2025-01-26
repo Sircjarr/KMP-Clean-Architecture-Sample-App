@@ -19,6 +19,7 @@ import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroDetailsVie
 import com.sircjarr.marvelrivalsherolookup.feature.herodetails.ui.HeroStat
 import com.sircjarr.marvelrivalsherolookup.ui.composables.ErrorMessageWithRetry
 import com.sircjarr.marvelrivalsherolookup.ui.composables.LoadingMessage
+import com.sircjarr.marvelrivalsherolookup.ui.util.pascalCase
 
 @Composable
 @Preview(showBackground = true)
@@ -82,7 +83,8 @@ fun HeroDetailsContentRoot(
                     Modifier
                         .fillMaxWidth()
                         .padding(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 8.dp),
-                    name, iconUrl
+                    name.pascalCase(),
+                    iconUrl
                 )
             }
         }
