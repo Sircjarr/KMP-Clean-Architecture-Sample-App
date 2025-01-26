@@ -45,6 +45,7 @@ import com.sircjarr.marvelrivalsherolookup.R
 import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroListItem
 import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroesListViewState
 import com.sircjarr.marvelrivalsherolookup.ui.ColorRes
+import com.sircjarr.marvelrivalsherolookup.ui.ErrorMessageWithRetry
 import com.sircjarr.marvelrivalsherolookup.ui.LoadingMessage
 import com.sircjarr.marvelrivalsherolookup.ui.pickRateColor
 import com.sircjarr.marvelrivalsherolookup.ui.winRateColor
@@ -55,12 +56,25 @@ import kotlinx.coroutines.launch
 fun HeroesListScreen(
     @PreviewParameter(provider = HeroesListViewStatePreviewParamProvider::class)
     viewState: HeroesListViewState,
-    onHeroClicked: (HeroListItem) -> Unit = {}
+    onHeroClicked: (HeroListItem) -> Unit = {},
+    onRetryButtonClicked: () -> Unit = {}
 ) {
-    if (viewState.isLoading) {
-        LoadingMessage(Modifier.fillMaxSize(), "Fetching heroes list, please wait...")
-    } else {
-        HeroesListContent(viewState, onHeroClicked)
+    when {
+        viewState.isLoading -> {
+            LoadingMessage(Modifier.fillMaxSize(), "Fetching heroes list, please wait...")
+        }
+
+        viewState.err != null -> {
+            ErrorMessageWithRetry(
+                Modifier.fillMaxSize(),
+                checkNotNull(viewState.err),
+                onRetryButtonClicked
+            )
+        }
+
+        else -> {
+            HeroesListContent(viewState, onHeroClicked)
+        }
     }
 }
 
@@ -71,7 +85,7 @@ fun HeroesListContent(
     onHeroClicked: (HeroListItem) -> Unit = {}
 ) {
 
-    val (_, list) = viewState
+    val (_, err, list) = viewState
 
     val allClasses = remember { list.map { it.`class` }.distinct() }
     val (search, setSearch) = remember { mutableStateOf("") }
@@ -199,11 +213,12 @@ fun HeroesListContent(
 
                     items(items, key = { e -> e.id }) { item ->
                         val (_, _, name, imageUrl, _, pickRate, winRate) = item
-                        Row(modifier = Modifier
-                            .height(IntrinsicSize.Min)
-                            .fillMaxWidth()
-                            .padding(start = 8.dp, end = 8.dp)
-                            .clickable { onHeroClicked(item) },
+                        Row(
+                            modifier = Modifier
+                                .height(IntrinsicSize.Min)
+                                .fillMaxWidth()
+                                .padding(start = 8.dp, end = 8.dp)
+                                .clickable { onHeroClicked(item) },
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             AsyncImage(
@@ -219,7 +234,12 @@ fun HeroesListContent(
                             )
 
                             Spacer(Modifier.weight(1f))
-                            Divider(modifier = Modifier.fillMaxHeight().width(1.dp).padding(top = 12.dp, bottom = 12.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(1.dp)
+                                    .padding(top = 12.dp, bottom = 12.dp)
+                            )
 
                             Column(
                                 modifier = Modifier.width(75.dp),
@@ -235,7 +255,12 @@ fun HeroesListContent(
                                 Text(text = "Win rate", fontSize = 14.sp, color = Color.Gray)
                             }
 
-                            Divider(modifier = Modifier.fillMaxHeight().width(1.dp).padding(top = 12.dp, bottom = 12.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(1.dp)
+                                    .padding(top = 12.dp, bottom = 12.dp)
+                            )
 
                             Column(
                                 modifier = Modifier.width(75.dp),

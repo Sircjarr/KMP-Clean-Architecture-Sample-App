@@ -32,6 +32,8 @@ fun MainNavHost() {
                 // Encode args with '/' that affect Compose Navigation
                 val encodedUrl = URLEncoder.encode(heroListItem.webUrl, StandardCharsets.UTF_8.toString())
                 navController.navigate("${Screen.HERO_DETAILS.route}/${heroListItem.name}/$encodedUrl/${heroListItem.pickRate}/${heroListItem.winRate}")
+            }, onRetryButtonClicked = {
+                viewModel.loadHeroesList()
             })
         }
         composable(

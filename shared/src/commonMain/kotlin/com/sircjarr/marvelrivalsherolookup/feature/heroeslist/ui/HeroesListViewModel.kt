@@ -25,6 +25,7 @@ class HeroesListViewModel(
                     withContext(Dispatchers.Main) {
                         viewState.value = viewState.value.copy(
                             isLoading = false,
+                            err = null,
                             list = list
                         )
                     }
@@ -40,10 +41,15 @@ class HeroesListViewModel(
             isLoading = true
         )
 
-        // Todo: handle errors, scope to viewmodel
         scope.launch {
-            loadHeroesListUseCase()
-            println("LOADED LIST!")
+            loadHeroesListUseCase().onFailure { ex ->
+                withContext(Dispatchers.Main) {
+                    viewState.value = viewState.value.copy(
+                        isLoading = false,
+                        err = "Failed loading heroes list. Check your connection and try again."
+                    )
+                }
+            }
         }
     }
 }
