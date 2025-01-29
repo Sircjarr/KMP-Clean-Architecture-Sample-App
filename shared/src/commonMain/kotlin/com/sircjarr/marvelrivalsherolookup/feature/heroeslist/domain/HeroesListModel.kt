@@ -17,9 +17,7 @@ fun List<HeroListItemDto>.toHeroListItemModel(rates: List<HeroRateDto>) = map { 
     val (id, tag, title, images, url) = hero
 
     val rate = rates.find { it.name.lowercase() == title.lowercase() }
-    rate?.let {
-        println("[W] rate not found for list item name: $title")
-    }
+    rate ?: println("[W] rate not found for list item name: $title")
 
     HeroListItemModel(
         id,

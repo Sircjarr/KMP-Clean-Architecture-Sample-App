@@ -25,21 +25,15 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
-
-            // Testing
-
-
             // KT coroutines
             implementation(libs.kotlinx.coroutines.core)
 
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
-            implementation(libs.koin.test)
 
             // Ktor
             implementation(libs.ktor.client.core)
@@ -50,10 +44,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
 
             // KT serialization
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
-            // Koin + Ktor
-            // implementation("io.insert-koin:koin-ktor")
+            implementation(libs.kotlinx.serialization.json)
         }
 
         androidMain.dependencies {
@@ -67,14 +58,11 @@ kotlin {
             // Koin + Android Jetpack Compose
             implementation(libs.koin.androidx.compose)
             implementation(libs.koin.androidx.compose.navigation)
-            // implementation("io.insert-koin:koin-logger-slf4j:")
-            // Koin + Ktor
-            // implementation("io.insert-koin:koin-ktor")
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.koin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }

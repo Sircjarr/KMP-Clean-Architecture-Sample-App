@@ -10,6 +10,15 @@ class HeroDetailsRepo(private val heroDataSource: HeroDataSource) {
     private val heroDetailsMap: MutableMap<String, HeroDetailsModel> = mutableMapOf()
     private val flow = MutableStateFlow<HeroDetailsModel?>(null)
 
+    fun getFlow(nameArg: String): Flow<HeroDetailsModel?> {
+        flow.value = if (hasCached(nameArg)) {
+            checkNotNull(heroDetailsMap[nameArg])
+        } else {
+            null
+        }
+        return flow
+    }
+
     suspend fun load(nameArg: String) {
         flow.value = if (hasCached(nameArg)) {
             checkNotNull(heroDetailsMap[nameArg])
@@ -18,15 +27,6 @@ class HeroDetailsRepo(private val heroDataSource: HeroDataSource) {
             heroDetailsMap[nameArg] = hero.toHeroDetailsModel()
             checkNotNull(heroDetailsMap[nameArg])
         }
-    }
-
-    fun getFlow(nameArg: String): Flow<HeroDetailsModel?> {
-        flow.value = if (hasCached(nameArg)) {
-            checkNotNull(heroDetailsMap[nameArg])
-        } else {
-            null
-        }
-        return flow
     }
 
     private fun hasCached(nameArg: String): Boolean {
