@@ -1,5 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -11,7 +9,6 @@ plugins {
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -19,8 +16,21 @@ kotlin {
     
     sourceSets {
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(projects.shared)
+
+            // Android
+            implementation(libs.androidx.lifecycle.viewmodel)
+
+            // Compose
+            implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.activity.compose)
+            implementation(compose.preview)
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
@@ -38,19 +48,8 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.okhttp)
 
+            // Extra icons (for Link icon)
             implementation(libs.androidx.material.icons.extended.android)
-        }
-
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(projects.shared)
         }
     }
 }

@@ -47,19 +47,6 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
         }
 
-        androidMain.dependencies {
-            // Koin
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
-
-            // Koin Android
-            implementation(libs.koin.android)
-
-            // Koin + Android Jetpack Compose
-            implementation(libs.koin.androidx.compose)
-            implementation(libs.koin.androidx.compose.navigation)
-        }
-
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
