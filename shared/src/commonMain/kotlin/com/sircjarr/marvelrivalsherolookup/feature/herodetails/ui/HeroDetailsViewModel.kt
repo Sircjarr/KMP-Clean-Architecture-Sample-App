@@ -21,7 +21,7 @@ class HeroDetailsViewModel(
     private lateinit var heroName: String
     private lateinit var webUrl: String
 
-    fun init(heroName: String, webUrl: String) {
+    fun doInitialize(heroName: String, webUrl: String) {
         this.heroName = heroName
         this.webUrl = webUrl
 

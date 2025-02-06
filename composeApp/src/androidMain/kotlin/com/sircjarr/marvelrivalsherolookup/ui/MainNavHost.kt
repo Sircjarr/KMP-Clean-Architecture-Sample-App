@@ -64,7 +64,7 @@ fun MainNavHost() {
             val winRate = backStackEntry.arguments?.getFloat("winRate")!!
 
             LaunchedEffect(true) {
-                viewModel.init(heroName, webUrl)
+                viewModel.doInitialize(heroName, webUrl)
             }
 
             HeroDetailsScreen(viewState,
