@@ -2,27 +2,41 @@ import SwiftUI
 import Shared
 
 struct ContentView: View {
-    @State private var showContent = false
+    
+    @State var path = NavigationPath(["0"])
     
     var body: some View {
-        VStack {
-            Button("Click me!") {
-                withAnimation {
-                    showContent = !showContent
-                }
-            }
-
-            if showContent {
-                VStack(spacing: 16) {
-                    Image(systemName: "swift")
-                        .font(.system(size: 200))
-                        .foregroundColor(.accentColor)
-                }
-                .transition(.move(edge: .top).combined(with: .opacity))
+        NavigationStack(path: $path) {
+            VStack {
+                HeroListScreen()
+            }.navigationDestination(for: HeroDetailsArgs.self) { heroDetails in
+                // SKIE plugin - no default case required
+                let name = heroDetails.name
+                let url = heroDetails.url
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding()
+
+    }
+}
+
+
+struct HeroDetailsScreen: View {
+    var body: some View {
+        Text("FAKE")
+    }
+}
+
+struct HeroListScreen: View {
+    @StateObject var viewModel = HeroesListIosViewModel(viewModel: KoinIosHelper.companion.heroesListViewModel)
+   
+    var body: some View {
+        if (viewModel.viewState.isLoading) {
+            Text("Loading")
+        } else if (viewModel.viewState.err != nil) {
+            Text("\(viewModel.viewState.err!)")
+        } else {
+            Text("Finished Loading")
+        }
     }
 }
 

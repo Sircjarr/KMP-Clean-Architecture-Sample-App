@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.21"
+    alias(libs.plugins.skie)
 }
 
 kotlin {
@@ -37,7 +38,7 @@ kotlin {
 
             // Ktor
             implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.cio) // Engine for Android
 
             // Ktor JSON DTO Serialization
             implementation(libs.ktor.client.content.negotiation)
@@ -50,6 +51,12 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
+        }
+
+        iosMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+            implementation(libs.ktor.client.darwin) // Engine for iOS
         }
     }
 }
