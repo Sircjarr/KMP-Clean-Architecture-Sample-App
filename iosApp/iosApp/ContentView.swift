@@ -3,7 +3,7 @@ import Shared
 
 struct ContentView: View {
     
-    @State var path = NavigationPath(["0"])
+    @State var path = NavigationPath()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -15,7 +15,6 @@ struct ContentView: View {
                 let url = heroDetails.url
             }
         }
-
     }
 }
 
@@ -30,10 +29,20 @@ struct HeroListScreen: View {
     @StateObject var viewModel = HeroesListIosViewModel(viewModel: KoinIosHelper.companion.heroesListViewModel)
    
     var body: some View {
-        if (viewModel.viewState.isLoading) {
+        HeroListScreen2(viewState: viewModel.viewState).task {
+            await viewModel.observeViewState()
+        }
+    }
+}
+
+struct HeroListScreen2: View {
+    let viewState: HeroesListViewState
+    
+    var body: some View {        
+        if (viewState.isLoading) {
             Text("Loading")
-        } else if (viewModel.viewState.err != nil) {
-            Text("\(viewModel.viewState.err!)")
+        } else if (viewState.err != nil) {
+            Text("\(viewState.err!)")
         } else {
             Text("Finished Loading")
         }
