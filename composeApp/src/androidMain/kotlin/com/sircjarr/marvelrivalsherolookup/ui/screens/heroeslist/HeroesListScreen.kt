@@ -9,8 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.sircjarr.marvelrivalsherolookup.FakeData
 import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroListItem
 import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.HeroesListViewState
+import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.ui.heroesListViewState
 import com.sircjarr.marvelrivalsherolookup.ui.composables.ErrorMessageWithRetry
 import com.sircjarr.marvelrivalsherolookup.ui.composables.LoadingMessage
 
@@ -94,47 +96,7 @@ fun HeroesListScaffold(
 private class HeroesListViewStatePreviewParamProvider :
     PreviewParameterProvider<HeroesListViewState> {
     private val defaultState by lazy {
-        HeroesListViewState(
-            isLoading = false,
-            list = listOf(
-                HeroListItem(
-                    "1",
-                    "DUELIST",
-                    "Mister Fantastic",
-                    "https://r.res.easebar.com/pic/20250109/65590c45-16ea-44f3-a508-c80a9f5547b9.png",
-                    "",
-                    33.0,
-                    45.0
-                ),
-                HeroListItem(
-                    "2",
-                    "DUELIST",
-                    "Black Widow",
-                    "https://r.res.easebar.com/pic/20241204/f8f32a42-a17a-482c-8da0-cfe273b7da77.png",
-                    "",
-                    19.0,
-                    2.0
-                ),
-                HeroListItem(
-                    "3",
-                    "VANGUARD",
-                    "Magneto",
-                    "https://www.marvelrivals.com/pc/gw/5da825b19a6a/heros/head_11.png",
-                    "",
-                    11.0,
-                    90.0
-                ),
-                HeroListItem(
-                    "4",
-                    "STRATEGIST",
-                    "LUNA SNOW",
-                    "https://www.marvelrivals.com/pc/gw/5da825b19a6a/heros/head_18.png",
-                    "",
-                    33.2,
-                    88.0
-                )
-            )
-        )
+        FakeData.heroesListViewState
     }
 
     override val values: Sequence<HeroesListViewState>

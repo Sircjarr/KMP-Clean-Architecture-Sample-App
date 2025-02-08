@@ -31,4 +31,8 @@ struct HeroDetailsScreen2: View {
     }
 }
 
-
+struct HeroesDetailsScreen2_Previews: PreviewProvider {
+    static var previews: some View {
+        HeroDetailsScreen2(viewState: FakeData.companion.heroDetailsViewState)
+    }
+}

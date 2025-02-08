@@ -8,16 +8,10 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                HeroListScreen()
+                HeroesListScreen()
             }.navigationDestination(for: HeroDetailsArgs.self) { args in
                 HeroDetailsScreen(args: args)
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
