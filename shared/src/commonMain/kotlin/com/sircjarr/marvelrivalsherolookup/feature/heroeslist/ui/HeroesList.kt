@@ -4,7 +4,7 @@ import com.sircjarr.marvelrivalsherolookup.feature.heroeslist.domain.HeroListIte
 
 data class HeroListItem(
     val id: String,
-    val `class`: String,
+    val classification: String,
     val name: String,
     val imageUrl: String,
     val webUrl: String,

@@ -5,7 +5,7 @@ import com.sircjarr.marvelrivalsherolookup.feature.herodetails.domain.HeroDetail
 data class HeroDetails(
     val name: String,
     val realName: String,
-    val `class`: String,
+    val classification: String,
     val description: String,
     val imageUrl: String,
     val iconUrl: String,

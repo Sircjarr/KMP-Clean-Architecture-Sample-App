@@ -51,7 +51,7 @@ fun HeroesListScaffold(
 
     val (_, _, list) = viewState
 
-    val allClasses = remember { list.map { it.`class` }.distinct() }
+    val allClasses = remember { list.map { it.classification }.distinct() }
     val (search, setSearch) = remember { mutableStateOf("") }
     val (blacklist, setBlacklist) = remember { mutableStateOf("") }
     val lazyListState = rememberLazyListState()
@@ -64,9 +64,9 @@ fun HeroesListScaffold(
                     it.name.lowercase().contains(search.lowercase())
                 }
             }.filter {
-                !blacklist.contains(it.`class`, ignoreCase = true)
+                !blacklist.contains(it.classification, ignoreCase = true)
             }.groupBy {
-                it.`class`
+                it.classification
             }.toSortedMap()
         }
     }

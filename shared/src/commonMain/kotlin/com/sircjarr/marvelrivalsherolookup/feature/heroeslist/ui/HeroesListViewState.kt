@@ -43,7 +43,7 @@ val FakeData.Companion.heroesListViewState
             HeroListItem(
                 "4",
                 "STRATEGIST",
-                "LUNA SNOW",
+                "Luna Snow",
                 "https://www.marvelrivals.com/pc/gw/5da825b19a6a/heros/head_18.png",
                 "",
                 33.2,

@@ -28,9 +28,10 @@ kotlin {
             /**
              * Static: Binary content of your shared lib is merged inside your iOS binary app
              * Dynamic: Binary content of your shared lib is loaded when the app is started, as an
-             * an external file.
+             * an external file
              *
-             * Setting to dynamic fixed Xcode SwiftUI previews
+             * Setting to dynamic fixed Xcode SwiftUI previews, but broke importing the Shared module
+             * Setting to static fixes the Shared module import, but breaks the previews
              */
             isStatic = false
         }
