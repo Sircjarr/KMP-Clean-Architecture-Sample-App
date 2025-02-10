@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct HeroesListTopBar: View {
-    @State var search: String
-    @State var blacklist: String
+    @Binding var search: String
+    @Binding var blacklist: String
     let allClasses: [String]
     
     @State var isExpanded = false
@@ -10,12 +10,14 @@ struct HeroesListTopBar: View {
     var body: some View {
         VStack {
             HStack {
+                Image(systemName: "magnifyingglass")
+                
                 TextField(text: $search) {
                     Text("Search")
                 }
                 
                 Image(systemName: "line.3.horizontal.decrease")
-            }
+            }.padding()
         }
     }
 }

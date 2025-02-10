@@ -20,7 +20,7 @@ struct HeroesListScreen2: View {
         } else if (viewState.err != nil) {
             Text("\(viewState.err!)")
         } else {
-            HeroesListScaffold(viewState: viewState)
+            HeroesListScaffold(viewState: viewState).padding(4)
         }
     }
 }

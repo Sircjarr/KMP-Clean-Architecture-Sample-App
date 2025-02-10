@@ -5,8 +5,8 @@ struct HeroesListScaffold: View {
     let viewState: HeroesListViewState
     let allClasses: [String]
     
-    @State var search = ""
-    @State var blacklist = ""
+    @State private var search = ""
+    @State private var blacklist = ""
     
     var heroMap: [String: [HeroListItem]] {
         let a = if search.isEmpty { viewState.list } else {
@@ -30,7 +30,7 @@ struct HeroesListScaffold: View {
     
     var body: some View {
         VStack {
-            HeroesListTopBar(search: search, blacklist: blacklist, allClasses: allClasses)
+            HeroesListTopBar(search: $search, blacklist: $blacklist, allClasses: allClasses)
             HeroesListContent(heroMap: heroMap, onHeroClicked: { hero in })
         }
     }
