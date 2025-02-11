@@ -3,10 +3,9 @@ import Shared
 
 struct HeroesListScaffold: View {
     let viewState: HeroesListViewState
-    let allClasses: [String]
     
     @State private var search = ""
-    @State private var blacklist = ""
+    @State var allClasses: [String: Bool]
     
     var heroMap: [String: [HeroListItem]] {
         let a = if search.isEmpty { viewState.list } else {
@@ -15,22 +14,25 @@ struct HeroesListScaffold: View {
             }
         }
         return a.filter {
-            !blacklist.contains($0.classification)
+            allClasses[$0.classification]!
         }.groupBy {
             $0.classification
         }
     }
     
-    init(viewState: HeroesListViewState) {
+    init(viewState: HeroesListViewState, allClasses: [String: Bool] = [:]) {
         self.viewState = viewState
-        self.allClasses = Array(Set(viewState.list.map { e in
-            "\(e.classification)"
-        }))
+        
+        var m = [String: Bool]()
+        self.viewState.list.forEach { e in
+            m[e.classification] = true
+        }
+        self.allClasses = m
     }
     
     var body: some View {
         VStack {
-            HeroesListTopBar(search: $search, blacklist: $blacklist, allClasses: allClasses)
+            HeroesListTopBar(search: $search, allClasses: $allClasses)
             HeroesListContent(heroMap: heroMap, onHeroClicked: { hero in })
         }
     }

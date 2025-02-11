@@ -1,6 +1,3 @@
-import ArrayExtensions
-import DictExtensions
-
 let search = "2"
 let blacklist = ""
 let list = ["1", "2", "3", "2", "2"]
@@ -12,8 +9,6 @@ let n = if search.isEmpty { list } else {
     list.filter { e in
         e.contains(search)
     }
-}.filter {
-    true
 }
 
 let m = n.filter { e in
