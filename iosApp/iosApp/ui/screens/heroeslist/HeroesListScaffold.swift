@@ -3,6 +3,7 @@ import Shared
 
 struct HeroesListScaffold: View {
     let viewState: HeroesListViewState
+    let onHeroClicked: (HeroListItem) -> Void
     
     @State private var search = ""
     @State var allClasses: [String: Bool]
@@ -20,8 +21,12 @@ struct HeroesListScaffold: View {
         }
     }
     
-    init(viewState: HeroesListViewState, allClasses: [String: Bool] = [:]) {
+    init(
+        viewState: HeroesListViewState,
+        onHeroClicked: @escaping (HeroListItem) -> Void
+    ) {
         self.viewState = viewState
+        self.onHeroClicked = onHeroClicked
         
         var m = [String: Bool]()
         self.viewState.list.forEach { e in
@@ -33,7 +38,7 @@ struct HeroesListScaffold: View {
     var body: some View {
         VStack {
             HeroesListTopBar(search: $search, allClasses: $allClasses)
-            HeroesListContent(heroMap: heroMap, onHeroClicked: { hero in })
+            HeroesListContent(heroMap: heroMap, onHeroClicked: onHeroClicked)
         }
     }
 }

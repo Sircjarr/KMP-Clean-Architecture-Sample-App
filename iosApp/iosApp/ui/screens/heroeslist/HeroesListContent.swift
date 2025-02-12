@@ -17,11 +17,9 @@ struct HeroesListContent: View {
                     ForEach(Array(heroMap.keys).sorted(by: <), id: \.self) { classification in
                         Section(header: Text(classification).fontWeight(.bold)) {
                             ForEach(heroMap[classification]!, id: \.self) { hero in
-//                                NavigationLink {
-//                                    HeroDetailsArgs(name: hero.name, url: hero.url)
-//                                } label: {
-                                    HeroListItemRow(heroListItem: hero) { hero in }
-                                //}
+                                HeroListItemRow(heroListItem: hero).onTapGesture {
+                                    onHeroClicked(hero)
+                                }
                             }
                         }
                     }
@@ -39,7 +37,6 @@ struct HeroesListContent: View {
 
 struct HeroListItemRow: View {
     let heroListItem: HeroListItem
-    let onHeroClicked: (HeroListItem) -> Void
     
     var body: some View {
         HStack {
