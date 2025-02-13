@@ -27,7 +27,7 @@ struct HeroesListTopBar: View {
                         }
                     }
                 } label: {
-                    Image(systemName: "line.3.horizontal.decrease")
+                    Image(systemName: "line.3.horizontal.decrease").foregroundColor(Color.marvelRed)
                 }.menuActionDismissBehavior(.disabled)
                 
             }.padding(8)

@@ -37,6 +37,14 @@ struct HeroesListContent: View {
 
 struct HeroListItemRow: View {
     let heroListItem: HeroListItem
+    let winRate: Double
+    let pickRate: Double
+    
+    init(heroListItem: HeroListItem) {
+        self.heroListItem = heroListItem
+        winRate = heroListItem.winRate
+        pickRate = heroListItem.pickRate
+    }
     
     var body: some View {
         HStack {
@@ -44,12 +52,12 @@ struct HeroListItemRow: View {
             Spacer()
             Color.gray.frame(width: 1 / UIScreen.main.scale)
             VStack {
-                Text(String(NSString(format: "%.2f%%", heroListItem.winRate))).frame(width: 75)
+                Text(String(NSString(format: "%.2f%%", winRate))).frame(width: 75).foregroundColor(winRate.winRateColor)
                 Text("Win rate").font(.system(size: 12, weight: .light))
             }
             Color.gray.frame(width: 1 / UIScreen.main.scale)
             VStack {
-                Text(String(NSString(format: "%.2f%%", heroListItem.pickRate))).frame(width: 75)
+                Text(String(NSString(format: "%.2f%%", pickRate))).frame(width: 75).foregroundColor(pickRate.pickRateColor)
                 Text("Pick rate").font(.system(size: 12, weight: .light))
             }
         }

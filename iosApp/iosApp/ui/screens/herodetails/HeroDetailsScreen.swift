@@ -7,22 +7,15 @@ struct HeroDetailsScreen: View {
     )
     
     let args: HeroDetailsArgs
-    
-    let name: String
-    let url: String
-    
-    init(args: HeroDetailsArgs) {
-        self.args = args
-        name = args.name
-        url = args.url
-    }
-    
+   
     var body: some View {
         HeroDetailsScreen2(
-            viewState: viewModel.viewState,
-            onRetryButtonClicked: { viewModel.viewModel.loadHeroDetails(name: name) }
+            viewState: FakeData.companion.heroDetailsViewState,
+            onRetryButtonClicked: { viewModel.viewModel.loadHeroDetails(name: args.name) },
+            args: args,
+            onGlobeIconClicked: viewModel.viewModel.launchHeroUrlInExternalBrowser
         ).task {
-            viewModel.viewModel.doInitialize(heroName: name, webUrl: url)
+            // viewModel.viewModel.doInitialize(heroName: name, webUrl: url)
             await viewModel.observeViewState()
         }
     }
@@ -31,6 +24,8 @@ struct HeroDetailsScreen: View {
 struct HeroDetailsScreen2: View {
     let viewState: HeroDetailsViewState
     let onRetryButtonClicked: () -> Void
+    let args: HeroDetailsArgs
+    let onGlobeIconClicked: () -> Void
     
     var body: some View {
         if viewState.isLoading {
@@ -38,13 +33,22 @@ struct HeroDetailsScreen2: View {
         } else if viewState.err != nil {
             ErrorMessageWithRetry(viewState.err!, onRetryButtonClicked: onRetryButtonClicked).padding(8)
         } else {
-            Text("TODO").padding(8)
+            HeroDetailsScaffold(
+                hero: viewState.heroDetails!,
+                args: args,
+                onGlobeIconClicked: onGlobeIconClicked
+            ).padding(8)
         }
     }
 }
 
 struct HeroesDetailsScreen2_Previews: PreviewProvider {
     static var previews: some View {
-        HeroDetailsScreen2(viewState: FakeData.companion.heroDetailsViewState, onRetryButtonClicked: {})
+        HeroDetailsScreen2(
+            viewState: FakeData.companion.heroDetailsViewState,
+            onRetryButtonClicked: {},
+            args: HeroDetailsArgs(name: "", url: "", winRate: 51.09, pickRate: 13.41),
+            onGlobeIconClicked: {}
+        )
     }
 }
