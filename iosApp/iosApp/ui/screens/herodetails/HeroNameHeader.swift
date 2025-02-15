@@ -6,7 +6,7 @@ struct HeroNameHeader: View {
     
     var body: some View {
         HStack {
-            Text(name).font(.title)
+            Text(name).font(.largeTitle)
             Spacer()
             // TODO: image
         }

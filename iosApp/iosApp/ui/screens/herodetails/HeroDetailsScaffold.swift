@@ -19,17 +19,52 @@ struct HeroDetailsContent: View {
     let hero: HeroDetails
     let winRate: Double
     let pickRate: Double
-    
+        
     var body: some View {
         VStack(alignment: .leading) {
+            
             Text(hero.classification).padding(4).background(Color.gold).foregroundColor(.white)
+            Spacer().frame(height: 16)
             Text(hero.description_)
+            Spacer().frame(height: 16)
+                        
+            GroupBox("Base stats") {
+                VStack(alignment: .leading) {
+                    Divider()
+                    ForEach(hero.stats, id: \.self) { stat in
+                        HStack {
+                            Text(stat.title)
+                            Spacer()
+                            Text(stat.value)
+                        }
+                    }
+                }
+            }
             
-            // TODO: hero stats
+            Spacer().frame(height: 16)
             
-            HStack {
-                Text(String(winRate))
-                Text(String(pickRate))
+            Grid(horizontalSpacing: 16) {
+                GridRow {
+                    RoundedRectangle(cornerRadius: 10)
+                        .aspectRatio(1, contentMode: .fit)
+                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        .overlay {
+                            VStack {
+                                Text(String(winRate) + "%").font(.system(size: 26)).foregroundColor(winRate.winRateColor)
+                                Text("Win rate")
+                            }
+                        }
+                    
+                    RoundedRectangle(cornerRadius: 10)
+                        .aspectRatio(1, contentMode: .fit)
+                        .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        .overlay {
+                            VStack {
+                                Text(String(pickRate) + "%").font(.system(size: 26)).foregroundColor(pickRate.pickRateColor)
+                                Text("Pick rate")
+                            }
+                        }
+                }
             }
         }
     }
