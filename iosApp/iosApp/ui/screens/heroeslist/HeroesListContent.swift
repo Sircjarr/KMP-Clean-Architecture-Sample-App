@@ -48,7 +48,18 @@ struct HeroListItemRow: View {
     
     var body: some View {
         HStack {
-            Text(heroListItem.name)
+            AsyncImage(
+                url: URL(string: heroListItem.imageUrl),
+                content: { image in
+                    image.resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 70, height: 70)
+                },
+                placeholder: {
+                    ProgressView()
+                }
+            )
+            Text(heroListItem.name).font(.system(size: 14))
             Spacer()
             Color.gray.frame(width: 1 / UIScreen.main.scale)
             VStack {

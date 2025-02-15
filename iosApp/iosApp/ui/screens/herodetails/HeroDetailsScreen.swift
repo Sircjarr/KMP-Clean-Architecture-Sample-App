@@ -37,7 +37,7 @@ struct HeroDetailsScreen2: View {
                 hero: viewState.heroDetails!,
                 args: args,
                 onGlobeIconClicked: onGlobeIconClicked
-            ).padding(8)
+            )
         }
     }
 }

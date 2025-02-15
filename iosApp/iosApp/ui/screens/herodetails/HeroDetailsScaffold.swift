@@ -8,9 +8,15 @@ struct HeroDetailsScaffold: View {
     
     var body: some View {
         VStack {
-            HeroImageHeader(onGlobeIconClicked: onGlobeIconClicked)
-            HeroNameHeader(name: hero.name, iconUrl: hero.iconUrl)
-            HeroDetailsContent(hero: hero, winRate: args.winRate, pickRate: args.pickRate)
+            HeroImageHeader(imageUrl: hero.imageUrl, onGlobeIconClicked: onGlobeIconClicked).frame(
+                height: 220
+            )
+            ScrollView {
+                VStack {
+                    HeroNameHeader(name: hero.name, iconUrl: hero.iconUrl)
+                    HeroDetailsContent(hero: hero, winRate: args.winRate, pickRate: args.pickRate)
+                }.padding(8)
+            }
         }
     }
 }
