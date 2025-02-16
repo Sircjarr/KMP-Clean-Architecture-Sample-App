@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.Public
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +34,7 @@ fun HeroImageHeader(modifier: Modifier, imageUrl: String, onGlobeIconClicked: ()
                 .clickable { onGlobeIconClicked() }
                 .size(40.dp)
                 .align(Alignment.TopEnd),
-            imageVector = Icons.Default.Link,
+            imageVector = Icons.Default.Public,
             contentDescription = "",
             tint = Color.DarkGray
         )

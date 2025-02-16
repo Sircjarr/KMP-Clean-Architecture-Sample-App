@@ -48,7 +48,7 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.okhttp)
 
-            // Extra icons (for Link icon)
+            // Extra icons (for Globe / Public icon)
             implementation(libs.androidx.material.icons.extended.android)
         }
     }
