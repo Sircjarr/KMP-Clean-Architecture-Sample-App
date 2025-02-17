@@ -3,7 +3,7 @@ Compact Kotlin Multiplatform and reactive clean architecture sample mobile app.
 In this project, all code is shared between the platforms except for the native UI. This design facillitates maximum scalability and rapid development when building for both Android and iOS platforms.
 
 > [!NOTE]
-> This project depends on a network API that may change in the future; impacting functionality
+> This project depends on a network API that may change in the future and impact functionality 
 
 # Demos
 List to details | Search and filtering | Redirect to external browser
@@ -90,7 +90,7 @@ Unit test runner | - | - | [Jetbrains kotlin-test](https://kotlinlang.org/api/co
         │       ├── di
         │       │   └── IntermediateSetAndroidModule.kt
         │       └── externalbrowserlauncher
-        │       └── ExternalBrowserLauncherAndroid.kt
+        │           └── ExternalBrowserLauncherAndroid.kt
         ├── commonMain
         │   └── kotlin/com/sircjarr/marvelrivalsherolookup
         │       ├── FakeData.kt
@@ -145,31 +145,61 @@ Unit test runner | - | - | [Jetbrains kotlin-test](https://kotlinlang.org/api/co
                 └── externalbrowserlauncher
                     └── ExternalBrowserLauncherIos.kt
 ```
-#### Source sets
+#### KMP source sets
 Source set | Type | Description
 :-|-:|-:
-shared/commonMain | common | Shared code accessible by all the source sets. Interfaces for platform-specific source sets to implement.
+shared/commonMain | common | Shared code accessible by all the source sets
 shared/commonTest | common | `commonMain` non-instrumented unit tests
 shared/androidMain | intermediate | Android-specific implementations of `commonMain` interfaces
 shared/iOSMain | intermediate | iOS-specific implementations of `commonMain` interfaces
 composeApp | target | Entry point for Android application and Compose code. Depends on `androidMain`.
 iOSApp | target | Entry point for iOS application and SwiftUI code. Depends on `iOSMain`.
-
-#### commonMain file structure
-`commonMain` hosts the core business logic consumed by all other source sets and is structured with 4 root folders:
-* di
-  * Contains a Koin module defining injection of all shared dependencies
-* lib
-  * Contains reusable interfaces that are not related to business logic for intermediate source sets to implement
-* feature
-  * Contains one folder per feature in the application
-    * This folder then may contain up to 4 folders organizing files by di and architecture layer
-  * Each feature is encapsulated and does not depend on another
-* feature_api
-  * Contains files that are consumed by more than one 'feature'
-  * In this case, I've opted to create a single `HeroDataSource` API and that is used by both `heroeslist` and `herodetails` features
-
+  
 # Dependency injection
+Koin module files are modularized and exist in all source set types (at least for Android)
+
+```kotlin
+// Shared/feature DI module
+val apiDataHeroModule = module {
+    singleOf(::HeroDataSourceKtor) bind HeroDataSource::class // Singleton
+    singleOf(::HeroDataSourceKtor) { createdAtStart() }
+}
+
+// Shared module combining all feature modules
+val commonDiModule = module {
+    includes(apiDataHeroModule, heroesListModule, heroDetailsModule)
+}
+
+// Intermediate module binding interface to platform-specific implementation
+val intermediateSetAndroidModule = module {
+    factoryOf(::ExternalBrowserLauncherAndroid) bind ExternalBrowserLauncher::class
+    factoryOf(::ExternalBrowserLauncherAndroid)
+}
+
+// Target-level module for Koin and Android ViewModels
+val composeAppModule = module {
+    viewModel { HeroesListAndroidViewModel(get()) }
+    viewModelOf(::HeroesListAndroidViewModel)
+
+    viewModel { HeroDetailsAndroidViewModel(get()) }
+    viewModelOf(::HeroDetailsAndroidViewModel)
+}
+
+// Finally, inject dependencies on app start
+startKoin {
+    androidContext(application)
+    modules(commonDiModule, intermediateSetAndroidModule, composeAppModule)
+}
+```
+
+# Build.gradle files
+1. project-level build.gradle
+   * Declares all of project's plugins: KMP, SKIE, kt serialization, etc...
+2. shared/build.gradle
+   * Declares target source sets to instruct Kotlin to compile code for that specific target
+   * Declares dependencies for `commonMain`, `commonTest`, and `iosMain` source sets
+3. composeApp/build.gradle
+    * For Android dependencies like a typical Android project 
 
 # Unit Testing
 Tests exist in the `commonTest` source set and use the [Jetbrains kotlin-test](https://kotlinlang.org/api/core/kotlin-test/) runner
