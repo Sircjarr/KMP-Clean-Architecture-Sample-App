@@ -14,11 +14,11 @@ List to details | Search and filtering | Redirect to external browser
  Topic | Android | iOS | KMP
 :-|-:|-:|-:
 Dependency injection | - | - | [Koin](https://insert-koin.io/)
-UI | Jetpack Compose + Compose Navigation | SwiftUI + SwiftUI Navigation | -
-Image loading | [Coil-Compose](https://github.com/coil-kt/coil) AsyncImage | SwiftUI AsyncImage | -
 Network | CIO engine | Darwin engine | [Ktor](https://ktor.io/) + kt serialization plugin
 Reactive programming | - | - | [SKIE plugin](https://github.com/touchlab/SKIE)
 Unit test runner | - | - | [Jetbrains kotlin-test](https://kotlinlang.org/api/core/kotlin-test/)
+UI | Jetpack Compose + Compose Navigation | SwiftUI + SwiftUI Navigation | -
+Image loading | [Coil-Compose](https://github.com/coil-kt/coil) AsyncImage | SwiftUI AsyncImage | -
 
 # Architecture
 
@@ -148,7 +148,7 @@ Unit test runner | - | - | [Jetbrains kotlin-test](https://kotlinlang.org/api/co
 #### KMP source sets
 Source set | Type | Description
 :-|-:|-:
-shared/commonMain | common | Shared code accessible by all the source sets
+shared/commonMain | common | Shared code containing core business logic accessible by all the source sets
 shared/commonTest | common | `commonMain` non-instrumented unit tests
 shared/androidMain | intermediate | Android-specific implementations of `commonMain` interfaces
 shared/iOSMain | intermediate | iOS-specific implementations of `commonMain` interfaces
@@ -189,6 +189,25 @@ val composeAppModule = module {
 startKoin {
     androidContext(application)
     modules(commonDiModule, intermediateSetAndroidModule, composeAppModule)
+}
+
+// iOS injection
+init() {
+    KoinIosHelper.companion.startKoin()
+}
+
+// Helper in iosMain; access Koin indirectly in Swift code
+class KoinIosHelper {
+    companion object: KoinComponent {
+        fun startKoin() {
+            org.koin.core.context.startKoin {
+                modules(commonDiModule, intermediateSetIosModule)
+            }
+        }
+
+        val heroesListViewModel: HeroesListViewModel by inject()
+        val heroDetailsViewModel: HeroDetailsViewModel by inject()
+    }
 }
 ```
 
