@@ -10,7 +10,7 @@ List to details | Search and filtering | Redirect to external browser
 :-:|:-:|:-:
 ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/ListToDetails.gif) | ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/SearchAndFiltering.gif) | ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/ToExternalBrowser.gif)
 
-# Libraries
+# Dependencies
  Topic | Android | iOS | KMP
 :-|-:|-:|-:
 Dependency injection | - | - | [Koin](https://insert-koin.io/)
@@ -21,6 +21,7 @@ UI | Jetpack Compose + Compose Navigation | SwiftUI + SwiftUI Navigation | -
 Image loading | [Coil-Compose](https://github.com/coil-kt/coil) AsyncImage | SwiftUI AsyncImage | -
 
 # Architecture
+![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/clean_arch_marvel_rivals.png)
 
 # File structure
 ```
@@ -156,7 +157,7 @@ composeApp | target | Entry point for Android application and Compose code. Depe
 iOSApp | target | Entry point for iOS application and SwiftUI code. Depends on `iOSMain`.
   
 # Dependency injection
-Koin module files are modularized and exist in all source set types (at least for Android)
+Koin modules are organized by source set and feature; making them small and encapsulated. 
 
 ```kotlin
 // Shared/feature DI module
