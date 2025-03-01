@@ -1,9 +1,9 @@
 # Description
-Compact Kotlin Multiplatform and reactive clean architecture sample mobile app. 
-In this project, all code is shared between the platforms except for the native UI. This design facillitates maximum scalability and rapid development when building for both Android and iOS platforms.
+Compact Kotlin Multiplatform and reactive clean architecture sample mobile app targeting both Android and iOS platforms. 
+In this project, all code is shared between the platforms except for the native UI. This design facillitates maximum scalability and rapid development while maintaining native look and feel when building for both Android and iOS platforms.
 
-> [!NOTE]
-> This project depends on a network API that may change in the future and impact functionality 
+#### About the project
+Discover hero stats and competetive win/pick rates from the game Marvel Rivals. Get up-to-date stats from a network call and display all heroes in a list. Click on a hero to view a lore description and more useful stats. Easily launch the device's external browser to view even more information on that hero. 
 
 # Demos
 List to details | Search and filtering | Redirect to external browser
@@ -159,25 +159,58 @@ iOSApp | target | Entry point for iOS application and SwiftUI code. Depends on `
 # Dependency injection
 Koin modules are organized by source set and feature; making them small and encapsulated. 
 
+#### Shared commonMain source set modules
 ```kotlin
-// Shared/feature DI module
+// Feature-level modules
 val apiDataHeroModule = module {
     singleOf(::HeroDataSourceKtor) bind HeroDataSource::class // Singleton
     singleOf(::HeroDataSourceKtor) { createdAtStart() }
 }
 
-// Shared module combining all feature modules
+val heroesListModule = module {
+    singleOf(::HeroesListRepo) { createdAtStart() }
+    singleOf(::GetHeroesListUseCase) { createdAtStart() }
+    singleOf(::LoadHeroesListUseCase) { createdAtStart() }
+    singleOf(::HeroesListViewModel) { createdAtStart() }
+}
+
+val heroDetailsModule = module {
+    singleOf(::HeroDetailsRepo) { createdAtStart() }
+    factoryOf(::GetHeroDetailsUseCase) // Inject on-demand
+    factoryOf(::LoadHeroDetailsUseCase)
+    factoryOf(::HeroDetailsViewModel)
+}
+
+// Consolidate feature modules into one
 val commonDiModule = module {
     includes(apiDataHeroModule, heroesListModule, heroDetailsModule)
 }
+```
 
-// Intermediate module binding interface to platform-specific implementation
+#### Intermediate source set modules
+````kotlin
+// androidMain
 val intermediateSetAndroidModule = module {
     factoryOf(::ExternalBrowserLauncherAndroid) bind ExternalBrowserLauncher::class
     factoryOf(::ExternalBrowserLauncherAndroid)
 }
 
-// Target-level module for Koin and Android ViewModels
+// iosMain
+val intermediateSetIosModule = module {
+    factoryOf(::ExternalBrowserLauncherIos) bind ExternalBrowserLauncher::class
+    factoryOf(::ExternalBrowserLauncherIos)
+}
+````
+
+#### Android injection in composeApp
+````kotlin
+// On app startup
+startKoin {
+    androidContext(application)
+    modules(commonDiModule, intermediateSetAndroidModule, composeAppModule)
+}
+
+// Additional target-level module needed for Koin to inject Anrdoid ViewModels
 val composeAppModule = module {
     viewModel { HeroesListAndroidViewModel(get()) }
     viewModelOf(::HeroesListAndroidViewModel)
@@ -185,18 +218,16 @@ val composeAppModule = module {
     viewModel { HeroDetailsAndroidViewModel(get()) }
     viewModelOf(::HeroDetailsAndroidViewModel)
 }
+````
 
-// Finally, inject dependencies on app start
-startKoin {
-    androidContext(application)
-    modules(commonDiModule, intermediateSetAndroidModule, composeAppModule)
-}
-
-// iOS injection
+#### iOS injection in iosApp
+````swift
+// On app startup
 init() {
     KoinIosHelper.companion.startKoin()
 }
-
+````
+````kotlin
 // Helper in iosMain; access Koin indirectly in Swift code
 class KoinIosHelper {
     companion object: KoinComponent {
@@ -210,7 +241,7 @@ class KoinIosHelper {
         val heroDetailsViewModel: HeroDetailsViewModel by inject()
     }
 }
-```
+````
 
 # Build.gradle files
 1. project-level build.gradle
@@ -233,11 +264,15 @@ Tests exist in the `commonTest` source set and use the [Jetbrains kotlin-test](h
 - [ ] Error UI for loading images
 - [ ] Improve error messages for: offline, server error codes, and invalid response parsing
 
+# Contributing
+This is a project primarily for demo purposes and is not open to MRs. However, if you would like to work on top of it feel free to fork away.   
+
 # API
 https://lunarapi.org/
 
 # Buy me a Coffee
-If you gained any value from this, I'd appreciate it :)
+If you gained any value from this and feel so inclined, I'd appreciate it :)
+https://ko-fi.com/sircjarr
 
 # Disclaimer
 This a non-official application and not endorsed by NetEase Games or Marvel Entertainment in any way. NetEase, Marvel Entertainment, and all associated properties are trademarks or registered trademarks of Marvel Entertainment.
