@@ -1,9 +1,11 @@
 # Description
-Compact Kotlin Multiplatform and reactive clean architecture sample mobile app targeting both Android and iOS platforms. 
-In this project, all code is shared between the platforms except for the native UI. This design facilitates maximum scalability and rapid development while maintaining native look and feel when building for both Android and iOS platforms.
+Compact Kotlin Multiplatform and reactive clean architecture sample mobile app targeting both Android and iOS platforms. In this project, all code is shared between the platforms except for the native UI.
 
-#### About the project
-Discover hero stats and competitive win/pick rates from the game Marvel Rivals. Get up-to-date stats from a network call and display all heroes in a list. Click on a hero to view a lore description and more useful stats. Launch the device's external browser to view even more information on that hero. 
+#### Features
+* Discover hero stats and competitive win/pick rates from the game Marvel Rivals
+* Fetch hero details and multiplayer stats from a network call and display in a list categorized by class
+* Click on a hero to view their lore description along with more useful stats
+* Launch the device's external browser to view the hero's wiki page
 
 # Demos
 List to details | Search and filtering | Redirect to external browser
