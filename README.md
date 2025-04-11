@@ -272,9 +272,5 @@ This is a project primarily for demo purposes and is not open to MRs. However, i
 # API
 https://lunarapi.org/
 
-# Buy me a Coffee
-If you gained any value from this and feel so inclined, I'd appreciate it :)
-https://ko-fi.com/sircjarr
-
 # Disclaimer
 This a non-official application and not endorsed by NetEase Games or Marvel Entertainment in any way. NetEase, Marvel Entertainment, and all associated properties are trademarks or registered trademarks of Marvel Entertainment.
