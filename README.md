@@ -1,18 +1,17 @@
-# Description
 Compact Kotlin Multiplatform and reactive clean architecture sample mobile app targeting both Android and iOS platforms. In this project, all code is shared between the platforms except for the native UI.
 
-#### Features
+## Features
 * Discover hero stats and competitive win/pick rates from the game Marvel Rivals
 * Fetch hero details and multiplayer stats from a network call and display in a list categorized by class
 * Click on a hero to view their lore description along with more useful stats
 * Launch the device's external browser to view the hero's wiki page
 
-# Demos
+### Demos
 List to details | Search and filtering | Redirect to external browser
 :-:|:-:|:-:
 ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/ListToDetails.gif) | ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/SearchAndFiltering.gif) | ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/ToExternalBrowser.gif)
 
-# Dependencies
+## Dependencies
  Topic | Android | iOS | KMP
 :-|-:|-:|-:
 Dependency injection | - | - | [Koin](https://insert-koin.io/)
@@ -22,10 +21,10 @@ Unit test runner | - | - | [Jetbrains kotlin-test](https://kotlinlang.org/api/co
 UI | Jetpack Compose + Compose Navigation | SwiftUI + SwiftUI Navigation | -
 Image loading | [Coil-Compose](https://github.com/coil-kt/coil) AsyncImage | SwiftUI AsyncImage | -
 
-# Architecture
+## Architecture
 ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/clean_arch_marvel_rivals.png)
 
-# File structure
+## File structure
 ```
 .
 ├── composeApp
@@ -148,7 +147,7 @@ Image loading | [Coil-Compose](https://github.com/coil-kt/coil) AsyncImage | Swi
                 └── externalbrowserlauncher
                     └── ExternalBrowserLauncherIos.kt
 ```
-#### KMP source sets
+## KMP source sets
 Source set | Type | Description
 :-|-:|-:
 shared/commonMain | common | Shared code containing core business logic accessible by all the source sets
@@ -158,10 +157,10 @@ shared/iOSMain | intermediate | iOS-specific implementations of `commonMain` int
 composeApp | target | Entry point for Android application and Compose code. Depends on `androidMain`.
 iOSApp | target | Entry point for iOS application and SwiftUI code. Depends on `iOSMain`.
   
-# Dependency injection
+## Dependency injection
 Koin modules are organized by source set and feature; making them small and encapsulated. 
 
-#### Shared commonMain source set modules
+### Shared commonMain source set modules
 ```kotlin
 // Feature-level modules
 val apiDataHeroModule = module {
@@ -189,7 +188,7 @@ val commonDiModule = module {
 }
 ```
 
-#### Intermediate source set modules
+### Intermediate source set modules
 ````kotlin
 // androidMain
 val intermediateSetAndroidModule = module {
@@ -204,7 +203,7 @@ val intermediateSetIosModule = module {
 }
 ````
 
-#### Android injection in composeApp
+### Android injection in composeApp
 ````kotlin
 // On app startup
 startKoin {
@@ -222,7 +221,7 @@ val composeAppModule = module {
 }
 ````
 
-#### iOS injection in iosApp
+### iOS injection in iosApp
 ````swift
 // On app startup
 init() {
@@ -245,7 +244,7 @@ class KoinIosHelper {
 }
 ````
 
-# Build.gradle files
+## Build.gradle files
 1. project-level build.gradle
    * Declares all of project's plugins: KMP, SKIE, kt serialization, etc...
 2. shared/build.gradle
@@ -254,25 +253,25 @@ class KoinIosHelper {
 3. composeApp/build.gradle
     * For Android dependencies like a typical Android project 
 
-# Unit Testing
+## Unit Testing
 Tests exist in the `commonTest` source set and use the [Jetbrains kotlin-test](https://kotlinlang.org/api/core/kotlin-test/) runner
 1. [HeroDetailsRepoTest.kt](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/shared/src/commonTest/kotlin/HeroDetailsRepoTest.kt)
 1. [HeroListRepoTest.kt](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/shared/src/commonTest/kotlin/HeroesListRepoTest.kt)
 
-# Todo
+## Todo
 - [ ] Replace or update unsupported network API
 - [ ] Scope view model coroutines to Android's viewModelScope
 - [ ] R8 / ProGuard for Android to remove unused icon resources imported from large materials-extended library
 - [ ] Error UI for loading images
 - [ ] Improve error messages for: offline, server error codes, and invalid response parsing
 
-# Contributing
+## Contributing
 This is a project primarily for demo purposes and is not open to MRs. However, if you would like to work on top of it feel free to fork away.   
 
-# Aknowledgements
+## :star: Aknowledgements
 Thanks to https://lunarapi.org/ for the API.
 
 If this project caught your interest enough to star or read all the way through — thank you!
 
-# Disclaimer
+## Disclaimer
 This a non-official application and not endorsed by NetEase Games or Marvel Entertainment in any way. NetEase, Marvel Entertainment, and all associated properties are trademarks or registered trademarks of Marvel Entertainment.
