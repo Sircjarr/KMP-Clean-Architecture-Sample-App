@@ -269,8 +269,10 @@ Tests exist in the `commonTest` source set and use the [Jetbrains kotlin-test](h
 # Contributing
 This is a project primarily for demo purposes and is not open to MRs. However, if you would like to work on top of it feel free to fork away.   
 
-# API
-https://lunarapi.org/
+# Aknowledgements
+Thanks to https://lunarapi.org/ for the API.
+
+If this project caught your interest enough to star or read all the way through — thank you!
 
 # Disclaimer
 This a non-official application and not endorsed by NetEase Games or Marvel Entertainment in any way. NetEase, Marvel Entertainment, and all associated properties are trademarks or registered trademarks of Marvel Entertainment.
