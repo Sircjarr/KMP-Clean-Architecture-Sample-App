@@ -273,5 +273,8 @@ Thanks to https://lunarapi.org/ for the API.
 
 If this project caught your interest enough to star or read all the way through — thank you!
 
+## License
+[MIT License](LICENSE)
+
 ## Disclaimer
 This a non-official application and not endorsed by NetEase Games or Marvel Entertainment in any way. NetEase, Marvel Entertainment, and all associated properties are trademarks or registered trademarks of Marvel Entertainment.
