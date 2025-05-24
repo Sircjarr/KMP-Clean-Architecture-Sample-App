@@ -8,7 +8,7 @@ Compact Kotlin Multiplatform and reactive clean architecture sample mobile app t
 * Click on a hero to view their lore description along with more useful stats
 * Launch the device's external browser to view the hero's wiki page
 
-### Demos
+## Demos
 List to details | Search and filtering | Redirect to external browser
 :-:|:-:|:-:
 ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/ListToDetails.gif) | ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/SearchAndFiltering.gif) | ![](https://github.com/CliffJarrell/Marvel-Rivals-Hero-Lookup/blob/main/readme-res/ToExternalBrowser.gif)
