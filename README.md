@@ -1,3 +1,4 @@
+![GitHub top language](https://img.shields.io/github/languages/top/Sircjarr/KMP-Clean-Architecture-Sample-App)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Compact Kotlin Multiplatform and reactive clean architecture sample mobile app targeting both Android and iOS platforms. In this project, all code is shared between the platforms except for the native UI.
